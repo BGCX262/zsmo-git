@@ -1,0 +1,7 @@
+ <?php if($this->errorMessage != ""): ?>  
+    <div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+<?= $this->errorMessage; ?>
+    </div>
+<?php endif; ?>  
+  <?php echo $this->form; ?>

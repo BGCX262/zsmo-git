@@ -1,0 +1,27 @@
+<?php
+$this->title = "Cierres de caja";
+$this->headTitle($this->title);
+?>
+<p><a href="<?php echo $this->url(array('controller'=>'cierrecaja',
+        'action'=>'add'));?>" class="btn btn-primary">Agregar cierre de caja</a></p>
+<table class="table table-bordered table-condensed table-hover">
+<tr>
+    <th>hcj_fecha_creacion</th>
+    <th>hcj_fecha_contable_inicio</th>
+    <th>hcj_fecha_contable_final</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach($this->cierrescaja as $cierrecaja) : ?>
+<tr>
+    <td><?php echo $this->escape($cierrecaja->hcj_fecha_creacion);?></td>
+    <td><?php echo $this->escape($cierrecaja->hcj_fecha_contable_inicio);?></td>
+    <td><?php echo $this->escape($cierrecaja->hcj_fecha_contable_final);?></td>
+    <td>
+        <a href="<?php echo $this->url(array('controller'=>'cierrecaja',
+            'action'=>'edit', 'id'=>$cierrecaja->hcj_id_cierre_caja));?>" class="btn btn-small">Editar</a>
+        <a href="<?php echo $this->url(array('controller'=>'cierrecaja',
+            'action'=>'delete', 'id'=>$cierrecaja->hcj_id_cierre_caja));?>" class="btn btn-small">Borrar</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>

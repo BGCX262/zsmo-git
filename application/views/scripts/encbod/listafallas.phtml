@@ -1,0 +1,64 @@
+<?php include('menuencbod.phtml'); ?>
+<div class="container well">
+<h3>
+  Lista de Fallas y Devoluciones
+</h3>
+<form>
+  <div class="row-fluid">
+    <div class="span6">
+      <div class="control-group">
+      </div>
+      <div class="control-group">
+        <label for="selectinput1">
+          Local:
+        </label>
+        <select name="selectinput1">
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="textinput7">
+          Fecha Inicial:
+        </label>
+        <input name="textinput7" id="textinput7" type="date">
+      </div>
+      <div class="control-group">
+        <label for="textinput8">
+          Fecha Final:
+        </label>
+        <input name="textinput8" id="textinput8" type="date">
+      </div>
+    </div>
+    <div class="span6">
+      <div class="control-group">
+        <label for="selectinput5">
+          Estado:
+        </label>
+        <select name="selectinput5">
+        </select>
+      </div>
+      <div class="control-group">
+      </div>
+      <a class="btn btn-primary disabled" href="#">
+        Filtrar
+      </a>
+    </div>
+  </div>
+</form>
+
+
+  <div>
+    <?php echo $this->action('index', 'inventario'); ?>
+  </div>
+</div>
+
+<script>
+$( "#textinput7" ).datepicker({
+  "format": "dd/mm/yyyy",
+  "weekStart": 1,
+  "autoclose": true});
+$( "#textinput8" ).datepicker({
+  "format": "dd/mm/yyyy",
+  "weekStart": 1,
+  "autoclose": true});
+recorrerLiPrincipal('listafallas');
+</script>

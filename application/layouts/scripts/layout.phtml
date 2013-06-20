@@ -1,0 +1,50 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('Zapaterías SMO');
+
+echo $this->doctype(); ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head> 
+  
+  <link rel="shortcut icon" href="<?php echo $this->baseUrl().'/img/favicon.png'; ?>">
+    
+    <?php
+    
+          echo $this->headMeta();
+          echo $this->headTitle();
+    
+          echo $this->headLink()->prependStylesheet($this->baseUrl() . '/css/bootstrap-old.css')
+                               ->prependStylesheet($this->baseUrl() . '/css/fuelux.css')
+                               ->prependStylesheet($this->baseUrl() . '/css/fuelux-responsive.css')
+                               ->prependStylesheet($this->baseUrl() . '/css/datepicker.css');
+    
+          echo $this->headScript()->prependFile($this->baseUrl().'/js/jquery-1.8.3.min.js')
+                                 ->prependFile($this->baseUrl().'/js/underscore-min.js')
+                                 ->appendFile($this->baseUrl().'/js/fuelux-all.js')
+                                 ->appendFile($this->baseUrl().'/js/fuelux-staticdatasource.js')
+                                 ->appendFile($this->baseUrl().'/js/bootstrap-datepicker.js')
+                                 ->appendFile($this->baseUrl().'/js/jquery.currency.js')
+                                 ->prependFile($this->baseUrl().'/js/bootstrap.js');
+    ?>
+
+  <style>
+  body {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #3F8ED3;
+  }
+</style>
+</head>
+
+<body>
+
+  <div id="content">
+    <h1><?php echo $this->escape($this->title); ?></h1>
+    <?php echo $this->layout()->content; ?>
+
+  </div>
+</body>
+</html>

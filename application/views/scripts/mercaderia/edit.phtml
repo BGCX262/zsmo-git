@@ -1,0 +1,11 @@
+<?php
+$this->title = "Modificar mercadería";
+$this->headTitle($this->title);
+echo '<h3>Modificar mercadería</h3>';
+echo $this->form;
+?>
+
+<script>
+var origen = <?php echo $this->origen; ?>;
+$( '#mer_codigo' ).typeahead( {source: origen} );
+</script>

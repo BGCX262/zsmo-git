@@ -1,0 +1,106 @@
+<?php
+$this->title = "Lista de Mensajes";
+$this->headTitle($this->title);
+?>
+<h3>Lista de Mensajes</h3>
+<p>
+    <a class="btn btn-primary" href="<?php echo $this->url(array('controller'=>'mensaje',
+        'action'=>'add'));?>">Agregar Mensaje</a>
+</p>
+
+<div class="fuelux">
+  <table id="MyGrid" class="table table-bordered datagrid table-condensed">
+  <thead>
+    <tr>
+    <th>
+    <span class="datagrid-header-title">Mensajes</span>
+    <div class="datagrid-header-left"></div>
+    <div class="datagrid-header-right">
+    <div class="input-append search">
+    <input type="text" class="input-medium" placeholder="Buscar..."><button class="btn"><i class="icon-search"></i></button>
+    </div>
+    </div>
+    </th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+    <th>
+    <div class="datagrid-footer-left pull-left" style="display:none;">
+    <div class="grid-controls">
+    <span><span class="grid-start"></span> - <span class="grid-end"></span> de <span class="grid-count"></span></span>
+    <select class="grid-pagesize"><option>10</option><option>20</option><option>50</option><option>100</option></select>
+    <span>Por página</span>
+    </div>
+    </div>
+    <div class="datagrid-footer-right pull-right" style="display:none;">
+    <div class="grid-pager">
+    <button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+    <span>Pág.</span>
+    <div class="input-append dropdown combobox">
+    <input class="span1" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+    <ul class="dropdown-menu"></ul>
+    </div>
+    <span>de <span class="grid-pages"></span></span>
+    <button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+    </div>
+    </div>
+    </th>
+    </tr>
+  </tfoot>
+  </table>
+</div>
+
+<script type="text/javascript">
+          $(function () {
+                  $('#BrandLink, #ReturnLink').click(function () {
+                          $('body').data('scrollspy').activate('#controls');
+                  });
+
+            // INITIALIZING THE DATAGRID
+            var dataSource = new StaticDataSource({
+                columns: [{
+                    property: 'men_fecha',
+                    label: 'Fecha',
+                    sortable: true
+                }, {
+                    property: 'usu_nombre',
+                    label: 'Nombre',
+                    sortable: true
+                }, {
+                    property: 'usu_apellido_1',
+                    label: 'Apellido',
+                    sortable: true
+                }, {
+                    property: 'men_mensaje',
+                    label: 'Mensaje',
+                    sortable: true
+                }, {
+                    property: 'acciones',
+                    label: 'Acciones',
+                    sortable: false
+                }
+              ],
+                data: sampleData.datos,
+                delay: 250
+            });
+
+			$('#MyGrid').datagrid({
+                dataSource: dataSource
+            });
+		});
+//*******************************************************************************
+//*********************************** D A T A ***********************************
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+	} else {
+		root.sampleData = factory();
+	}
+}(this, function () {
+	return {
+                  "datos": <?php echo json_encode( $this->mensaje ); ?>
+	};
+}));
+
+</script>

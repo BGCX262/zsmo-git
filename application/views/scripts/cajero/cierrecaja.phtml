@@ -1,0 +1,60 @@
+<?php include('menucajero.phtml'); ?>
+<div class="container well">
+<h3>
+  Cierres de Caja
+</h3>
+<form>
+  <div class="row">
+    <div class="span4">
+      <div class="control-group">
+        <label for="textinput7">
+          Fecha Inicial:
+        </label>
+        <input name="textinput7" id="textinput7" type="">
+      </div>
+      <div class="control-group">
+        <label for="textinput8">
+          Fecha Final:
+        </label>
+        <input name="textinput8" id="textinput8" type="">
+      </div>
+    </div>
+    <div class="span4">
+      <div class="control-group">
+        <label for="selectinput5">
+          Local:
+        </label>
+        <select name="selectinput5">
+        </select>
+      </div>
+      <div class="control-group">
+        <label for="selectinput6">
+          Cajero:
+        </label>
+        <select name="selectinput6">
+        </select>
+      </div>
+    </div>
+    <div class="span4">
+      <a class="btn btn-primary disabled" href="#">
+        Filtrar
+      </a>
+    </div>
+  </div>
+</form>
+  
+  <div>
+    <?php echo $this->action('index', 'cierrecaja'); ?>
+  </div>
+</div>
+<script>
+$( "#textinput7" ).datepicker({
+  "format": "dd/mm/yyyy",
+  "weekStart": 1,
+  "autoclose": true});
+$( "#textinput8" ).datepicker({
+  "format": "dd/mm/yyyy",
+  "weekStart": 1,
+  "autoclose": true});
+recorrerLiPrincipal('cierrecaja');
+</script>

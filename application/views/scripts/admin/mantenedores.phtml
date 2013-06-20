@@ -1,0 +1,88 @@
+<?php include('menuadmin.phtml'); ?>
+<div class="container well">
+  <div class="row-fluid">
+    <div class="span3">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list" id="ulRecorrer">
+              <li class="nav-header">Lista de Mantenedores:</li>
+              <li id="usuario">     <a id="displayUsuario" href="#">Usuario</a></li>
+              <li id="mercaderia">  <a id="displayMercaderia" href="#">Mercadería</a></li>
+              <li id="mensaje">  <a id="displayMensaje" href="#">Mensajes de portada</a></li>
+        </ul>
+      </div><!--/.well -->
+    </div><!--/span-->
+    <div class="span9">
+      <div class="row-fluid" id="content1" style="height: 700px;">
+        <div class="hero-unit span10">
+          <h1>Lista de mantenedores</h1>
+          <p>Seleccione las entidades del sistema, desde el menú lateral izquierdo para comenzar.</p>
+        </div>
+      </div>
+<!--      
+      <div class="row-fluid" id="content2">
+        Ventana Inferior
+      </div>
+-->
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+$('#displayUsuario').click( function(event){ //version onClick de jquery
+    recorrerLi('usuario');
+    event.preventDefault();   //con esto evitamos que el enlace vaya a la direccion indicada
+    var ajaxUrl= "<?php echo $this->url(array('controller' => 'usuario','action' => 'index')); ?>";
+        $('#content1').load(ajaxUrl, function (){
+           //function() se llama despues de la llamada a ajax y el servidor ha devuelto datos
+//            alert("datos recibidos desde servidor"+ajaxUrl);
+        });
+});
+
+$('#displayMercaderia').click( function(event){
+    recorrerLi('mercaderia');
+    event.preventDefault();
+    var ajaxUrl= "<?php echo $this->url(array('controller' => 'mercaderia','action' => 'index')); ?>";
+        $('#content1').load(ajaxUrl, function (){ });
+});
+
+$('#displayMensaje').click( function(event){
+    recorrerLi('mensaje');
+    event.preventDefault();
+    var ajaxUrl= "<?php echo $this->url(array('controller' => 'mensaje','action' => 'index')); ?>";
+        $('#content1').load(ajaxUrl, function (){ });
+});
+
+function recorrerLi(idLi){
+      $('#ulRecorrer li').each(function () {
+      if( $(this).attr('id') == idLi ){
+        $(this).removeClass();
+        $(this).addClass("active");
+      }else{
+        if( $(this).attr('class') != "nav-header" && $(this).attr('class') == "active" )
+          $(this).removeClass();
+      }
+    });
+}
+recorrerLiPrincipal('mantenedores');
+/*
+ *              <li><a id="veralbumes" href="#">desde BD</a></li>
+    //cuando hago clic en el boton id=veralbumes JSON
+$('#veralbumes').click(function(event){
+    event.preventDefault();
+    var url = "<?php //echo $this->url(array('controller' => 'usuario','action' => 'indexajax')); ?>";
+    var datos = "";
+    //funcion que hace llamada a ajax esperando un
+    // arreglo json de respuesta
+    $.getJSON(url,  function(data){
+        //por cada elemento
+        //(recordar que recibimos un arreglo de arreglos)
+        $.each(data, function(i,row){
+            //guardo sus datos en un texto
+            var fila = i + ')' + row.usu_id_usuario + " - " + row.usu_nombre + " - " + row.usu_apellido_1 + " - " + row.usu_apellido_2;
+            datos += fila + '<br/>';});
+        //coloco resultado en capa id=albumesdiv
+        $('#content2').html(datos);
+    });
+});
+*/
+</script>

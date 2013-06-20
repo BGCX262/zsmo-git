@@ -1,0 +1,145 @@
+<?php
+$this->title = "Lista de Transacciones";
+$this->headTitle($this->title);
+?>
+<script>
+  function verPdf(id,borrador){
+      var url = "<?php echo $this->baseUrl("/transaccion/imprimir/id/") ?>"+id+"/borrador/"+borrador;
+      window.open(url,"ventanapdf","width= 400, height=200");    
+      //window.location = url;
+  }
+</script>
+<!-- Modal -->
+<div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-remote="">
+<div class="modal-header">
+<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+<h3 id="myModalLabel">Confirmar Transacción</h3>
+</div>
+<div class="modal-body"></div>
+<div class="modal-footer">
+</div>
+</div>
+<!-- fin modal -->
+
+<h3>Lista de transacciones</h3>
+<p>
+    <div class="btn-group">
+    <div class="btn btn-primary disabled">Agregar transacción:</div>
+    <a class="btn btn-primary" href="<?php echo $this->url(array('controller'=>'transaccion',
+        'action'=>'addtolocal'));?>"><i class="icon-share-alt icon-white"></i>Hacia local</a>
+    </div>
+</p>
+
+<div class="fuelux">
+  <table id="MyGrid" class="table table-bordered datagrid table-condensed">
+  <thead>
+    <tr>
+    <th>
+    <span class="datagrid-header-title">Mercadería</span>
+    <div class="datagrid-header-left"></div>
+    <div class="datagrid-header-right">
+    <div class="input-append search">
+    <input type="text" class="input-medium" placeholder="Buscar..."><button class="btn"><i class="icon-search"></i></button>
+    </div>
+    </div>
+    </th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+    <th>
+    <div class="datagrid-footer-left pull-left" style="display:none;">
+    <div class="grid-controls">
+    <span><span class="grid-start"></span> - <span class="grid-end"></span> de <span class="grid-count"></span></span>
+    <select class="grid-pagesize"><option>10</option><option>20</option><option>50</option><option>100</option></select>
+    <span>Por página</span>
+    </div>
+    </div>
+    <div class="datagrid-footer-right pull-right" style="display:none;">
+    <div class="grid-pager">
+    <button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+    <span>Pág.</span>
+    <div class="input-append dropdown combobox">
+    <input class="span1" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+    <ul class="dropdown-menu"></ul>
+    </div>
+    <span>de <span class="grid-pages"></span></span>
+    <button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+    </div>
+    </div>
+    </th>
+    </tr>
+  </tfoot>
+  </table>
+</div>
+
+<script type="text/javascript">
+function aceptarTransaccion(id_transaccion){
+  $('#modal').attr('data-remote','<?php echo $this->url(array('controller'=>'transaccion','action'=>'aceptartransaccion' ))."?id_transaccion=";?>' + id_transaccion);
+  $('#modal').modal();
+}
+  
+          $(function () {
+                  $('#BrandLink, #ReturnLink').click(function () {
+                          $('body').data('scrollspy').activate('#controls');
+                  });
+
+            // INITIALIZING THE DATAGRID
+            var dataSource = new StaticDataSource({
+                columns: [{
+                    property: 'tra_id_transaccion',
+                    label: 'Nro.',
+                    sortable: true
+                }, {
+                    property: 'tra_tipo_motivo',
+                    label: 'Tipo Transacción',
+                    sortable: true
+                }, {
+                    property: 'tra_fecha_inicio',
+                    label: 'Fecha Inicio',
+                    sortable: true
+                }, {
+                    property: 'tra_fecha_finalizacion',
+                    label: 'Fecha Finalización',
+                    sortable: true
+                }, {
+                    property: 'des_salida',
+                    label: 'Origen',
+                    sortable: true
+                }, {
+                    property: 'des_llegada',
+                    label: 'Destinatario',
+                    sortable: true
+                }, {
+                    property: 'acciones',
+                    label: 'Acciones',
+                    sortable: false
+                }
+              ],
+                data: sampleData.datos,
+                delay: 250
+            });
+
+			$('#MyGrid').datagrid({
+                dataSource: dataSource
+            });
+		});
+//*******************************************************************************
+//*********************************** D A T A ***********************************
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+	} else {
+		root.sampleData = factory();
+	}
+}(this, function () {
+	return {
+                  "datos": <?php echo json_encode( $this->transacciones ); ?>
+	};
+}));
+
+</script>
+
+<?php
+//var_dump($this->transacciones);
+?>

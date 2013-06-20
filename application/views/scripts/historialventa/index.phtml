@@ -1,0 +1,27 @@
+<?php
+$this->title = "Lista de fallas o devoluciones";
+$this->headTitle($this->title);
+?>
+<p><a href="<?php echo $this->url(array('controller'=>'historialventa',
+        'action'=>'add'));?>" class="btn btn-primary">Agregar estado de venta</a></p>
+<table class="table table-bordered table-condensed table-hover">
+<tr>
+    <th>hve_fecha</th>
+    <th>hve_descripcion_evento</th>
+    <th>hve_foto1</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach($this->historialventas as $historialventa) : ?>
+<tr>
+    <td><?php echo $this->escape($historialventa->hve_fecha);?></td>
+    <td><?php echo $this->escape($historialventa->hve_descripcion_evento);?></td>
+    <td><?php echo $this->escape($historialventa->hve_foto1);?></td>
+    <td>
+        <a href="<?php echo $this->url(array('controller'=>'historialventa',
+            'action'=>'edit', 'id'=>$historialventa->hve_id_historial_venta));?>" class="btn btn-small">Editar</a>
+        <a href="<?php echo $this->url(array('controller'=>'historialventa',
+            'action'=>'delete', 'id'=>$historialventa->hve_id_historial_venta));?>" class="btn btn-small">Borrar</a>
+    </td>
+</tr>
+<?php endforeach; ?>
+</table>

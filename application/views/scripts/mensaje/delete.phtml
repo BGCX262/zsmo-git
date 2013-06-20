@@ -1,0 +1,16 @@
+<?php
+$this->title = "Eliminar Mensaje";
+$this->headTitle($this->title);
+?>
+<div class="hero-unit">
+  <h1>Eliminar mensaje</h1>
+  <p>Está seguro que desea eliminar el mensaje "<?php echo $this->escape($this->mensaje['men_mensaje']); ?>"?
+  </p>
+<form action="<?php echo $this->url(array('action'=>'delete')); ?>" method="post">
+<div>
+  <input type="hidden" id="id" name="id" value="<?php echo $this->mensaje['men_id_mensaje']; ?>" />
+  <input class="btn btn-primary btn-large" type="submit" name="del" value="Si" />
+  <input class="btn btn-large" type="submit" name="del" value="No" />
+</div>
+</form>
+</div>

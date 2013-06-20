@@ -1,0 +1,92 @@
+<form id="formadd" method="post">
+<div class="container well">
+  <h3>Entrega de Venta</h3>
+  <?php echo $this->form->loc_nombre; ?>
+  <div class="row">
+      <div class="span2">
+        <b>Local:
+        <?php echo $this->form->loc_nombre->getValue(); ?>
+        </b>
+      </div>
+      <div class="span2">
+        <b>Cajero:</b><br />
+        <?php echo $this->form->usu_id_usuario; //cajero ?>
+      </div>
+      <div class="span2">
+        <b>Fecha y hora inicio:</b><br />
+        <?php echo $this->form->hcj_fecha_contable_inicio; ?>
+      </div>
+      <div class="span2">
+        <b>Fecha y hora final:</b><br />
+        <?php echo $this->form->hcj_fecha_contable_final; ?>
+      </div>
+      Cierre de caja<?php echo $this->form->cierrecaja_cb; ?>
+    </div>
+  
+  <table class="table-condensed">
+    <tr>
+      <td>Monto Total:</td>
+      <td>
+        <?php echo $this->form->edv_monto_total; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Fecha:</td>
+      <td>
+        <?php echo $this->form->edv_fecha; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Monto en 20 Mil:</td>
+      <td>
+        <?php echo $this->form->edv_monto_20mil; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Monto en 10 Mil:</td>
+      <td>
+        <?php echo $this->form->edv_monto_10mil; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Monto en 5 Mil:</td>
+      <td>
+        <?php echo $this->form->edv_monto_5mil; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Monto en 2 Mil:</td>
+      <td>
+        <?php echo $this->form->edv_monto_2mil; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Monto en 1 Mil:</td>
+      <td>
+        <?php echo $this->form->edv_monto_1mil; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Monto de Moneda de 500:</td>
+      <td>
+        <?php echo $this->form->edv_monto_500; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Monto de Otros Documentos:</td>
+      <td>
+        <?php echo $this->form->edv_monto_otros_documentos; ?>
+      </td>
+    </tr>
+    <tr>
+      <td>Monto de Devoluciones:</td>
+      <td>
+        <?php echo $this->form->edv_monto_devoluciones; ?>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><?php echo $this->form->submit; ?></td>
+    </tr>
+  </table>
+</div>
+</form>

@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    //version onClic de jquery
+    $('#displayUsuario').click(function(event)
+    {
+        $('#usuario').attr('class','active');
+        event.preventDefault();   //con esto evitamos que el enlace vaya a la direccion indicada
+        var ajaxUrl= "<?php echo $this->url(array('controller' => 'usuario','action' => 'index')); ?>";
+            $('#content1').load(ajaxUrl, function ()
+            {
+               //function() se llama despues de la llamada a ajax y el servidor ha devuelto datos
+//            alert("datos recibidos desde servidor"+ajaxUrl);
+            });
+        });
+
+
+    //cuando hago clic en el boton id=veralbumes
+        $('#veralbumes').click(function(event){
+
+            event.preventDefault();
+
+            var url = "<?php echo $this->url(array('controller' => 'usuario',
+    'action' => 'indexajax')); ?>";
+
+            var datos = "";
+            //funcion que hace llamada a ajax esperando un
+            // arreglo json de respuesta
+            $.getJSON(url,  function(data)
+            {
+                //por cada elemento
+                //(recordar que recibimos un arreglo de arreglos)
+                $.each(data, function(i,row){
+                    //guardo sus datos en un texto
+                    var fila = i + ')' + row.usu_id_usuario + " - " + row.usu_nombre + " - " + row.usu_apellido_1 + " - " + row.usu_apellido_2;
+
+                    datos += fila + '<br/>';
+                });
+                //coloco resultado en capa id=albumesdiv
+                $('#content2').html(datos);
+            });
+        });
+
+</script>

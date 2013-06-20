@@ -1,0 +1,17 @@
+<?php
+$this->title = "Confirmar Transacción";
+$this->headTitle($this->title);
+?>
+<div class="hero-unit">
+  <p>Confirmar la Transacción: 
+  <?php echo $this->escape($this->test['id_transaccion']); ?>?
+  </p>
+<form action="<?php echo $this->url(array('action'=>'aceptartransaccion')); ?>" method="post">
+<div>
+  <input type="hidden" id="id_transaccion" name="id_transaccion" value="<?php echo $this->test['id_transaccion']; ?>" />
+  <input class="btn btn-primary btn-large" type="submit" name="aceptar" value="Confirmar" />
+  &nbsp;
+  <input class="btn btn-danger btn-large" type="submit" name="aceptar" value="Rechazar" />
+</div>
+</form>
+</div>

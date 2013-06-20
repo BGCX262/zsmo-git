@@ -1,0 +1,87 @@
+      <!-- BARRA NAVEGACION -->
+  <div class="navbar navbar-fixed-top navbar-inverse" >
+      <div class="navbar-inner">
+        <div class="container">
+
+    <ul class="nav nav-tabs">
+    <li class="dropdown">
+    <a class="dropdown-toggle brand" data-toggle="dropdown" href="#">
+    Sistema SMO
+    <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+    <!-- links -->
+    <li><a href="/"><i class="icon-home"></i> Inicio</a></li>         
+    <li class="divider"></li>
+    <li class="nav-header">Seleccionar Perfil:</li>
+<?php foreach($this->usuariohasperfiles as $perfiles) : 
+  if($perfiles->per_nombre_dir == 'admin'){
+  ?>
+          <li class="active">
+            <a href="/<?php echo $perfiles->per_nombre_dir; ?>"><i class="icon-chevron-right"></i> <?php echo $perfiles->per_nombre; ?></a>
+          </li>
+<?php 
+  }else{
+  ?>
+          <li>
+            <a href="/<?php echo $perfiles->per_nombre_dir; ?>"><i class="icon-chevron-right"></i> <?php echo $perfiles->per_nombre; ?></a>
+          </li>
+<?php
+  }
+    endforeach; ?>
+    <li class="divider"></li>
+    <li><a href="/usuario/edit/id/<?php echo $this->id; ?>"><i class="icon-cog"></i> Config. de Usuario</a></li>
+    <li><a href="/login/logout"><i class="icon-off"></i> Salir</a></li>
+    </ul>
+    </li>
+    </ul>
+          
+      <div class="nav-collapse collapse">
+        <ul class="nav" id="menuPrincipal">
+          <li id="transacciones"><a href="/admin/transacciones"><b>TRANSACCIONES</b></a></li>
+          <li id="cierrescaja"><a href="/admin/cierrescaja"><b>CIERRES DE CAJA</b></a></li>
+          <li id="mantenedores"><a href="/admin/mantenedores"><b>MANTENEDORES</b></a></li>
+          <li id="basedatos"><a href="/admin/basedatos"><b>BASE DE DATOS</b></a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+      <p id="clock" class="navbar-text pull-right"></p>
+      </div>
+    </div>
+  </div>
+
+<script>
+function show(){
+  var Digital=new Date();
+  var hours=Digital.getHours();
+  var minutes=Digital.getMinutes();
+  var seconds=Digital.getSeconds();
+  var dn="AM";
+
+  if (hours>12){
+    dn="PM";
+    hours=hours-12;
+  }
+  if (hours==0)
+    hours=12;
+  if (minutes<=9)
+    minutes="0"+minutes;
+  if (seconds<=9)
+    seconds="0"+seconds;
+    document.getElementById("clock").innerHTML = hours+":"+minutes+":"+seconds+" "+dn;
+  setTimeout("show()",1000);
+}
+show();
+
+function recorrerLiPrincipal(idLi){
+      $('#menuPrincipal li').each(function () {
+      if( $(this).attr('id') == idLi ){
+        $(this).removeClass();
+        $(this).addClass("active");
+      }else{
+        if( $(this).attr('class') != "nav-header" )
+          $(this).removeClass();
+      }
+    });
+}
+
+</script>

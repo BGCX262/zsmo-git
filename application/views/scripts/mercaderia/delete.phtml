@@ -1,0 +1,17 @@
+<?php
+$this->title = "Eliminar Mercadería";
+$this->headTitle($this->title);
+?>
+<div class="hero-unit">
+  <h1>Eliminar mercadería</h1>
+  <p>Está seguro que desea eliminar la mercadería (Código: 
+  <?php echo $this->escape($this->mercaderia['mer_codigo']); ?>)?
+  </p>
+<form action="<?php echo $this->url(array('action'=>'delete')); ?>" method="post">
+<div>
+  <input type="hidden" id="id" name="id" value="<?php echo $this->mercaderia['mer_id_mercaderia']; ?>" />
+  <input class="btn btn-primary btn-large" type="submit" name="del" value="Si" />
+  <input class="btn btn-large" type="submit" name="del" value="No" />
+</div>
+</form>
+</div>

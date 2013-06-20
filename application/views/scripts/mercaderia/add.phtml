@@ -1,0 +1,55 @@
+<?php
+$this->title = "Agregar nueva mercadería";
+$this->headTitle($this->title);
+//echo '<h3>Agregar nueva mercadería</h3>';
+//echo $this->form;
+?>
+<div class="container-fluid">
+
+<div id="my-accordion" class="accordion">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a href="#collapse-datos1" data-parent="#my-accordion" data-toggle="collapse" class="accordion-toggle btn-primary">Datos Básicos</a>
+        </div>
+        <div class="accordion-body collapse" id="collapse-datos1">
+            <div class="accordion-inner">
+<?php echo $this->form->datos1; ?>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a href="#collapse-datos2" data-parent="#my-accordion" data-toggle="collapse" class="accordion-toggle btn-primary">Datos de Logística y Venta</a>
+        </div>
+        <div class="accordion-body collapse" id="collapse-datos2">
+            <div class="accordion-inner">
+<?php echo $this->form->datos2; ?>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a href="#collapse-datos3" data-parent="#my-accordion" data-toggle="collapse" class="accordion-toggle btn-primary">Datos Avanzados</a>
+        </div>
+        <div class="accordion-body collapse" id="collapse-datos3">
+            <div class="accordion-inner">
+<?php echo $this->form->datos3; ?>
+            </div>
+        </div>
+    </div>  
+</div>
+<?php echo $this->form->submit; ?>
+  <br />
+</div>
+
+<script>
+$('document').ready(function() {
+    $('#my-accordion').on('show hide', function() {
+        $(this).css('height', 'auto');
+    });
+    $('#my-accordion').collapse({ parent: true, toggle: true }); 
+});
+  
+var origen = <?php echo $this->origen; ?>;
+$( '#mer_codigo' ).typeahead( {source: origen} );
+</script>

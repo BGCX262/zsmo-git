@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+<nav>
+
+<customer>
+<label>Clientes</label>
+<module>customer</module>
+<controller>customer</controller>
+<action>index</action>
+<resource>customer:customer</resource>
+<privilege>index</privilege>
+</customer>
+
+<user>
+<label>Usuarios</label>
+<module>user</module>
+<controller>user</controller>
+<action>index</action>
+<resource>user:user</resource>
+<privilege>index</privilege>
+</user>
+
+<servicios>
+  <label>Servicios</label>
+  <uri>/static-content/servicios</uri>
+  <privilege>usuario</privilege>
+</servicios>
+
+</nav>
+</config>

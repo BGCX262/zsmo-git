@@ -1,0 +1,445 @@
+<div class="modal hide fade" id="modalFoto">
+<!--<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div> -->
+<div class="modal-body">
+<img id="fotoPopup" src="" class="img-rounded">
+</div>
+<!--<div class="modal-footer"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Cerrar</button></div> -->
+</div>
+
+<form id="formaddfrom" method="post">
+
+<div class="container well">
+<h3>Nueva transacción desde proveedor</h3>
+  <div>
+    <div class="btn-group">
+      <a class="btn" href="#"><i class="icon-print"></i>Imprimir</a>
+      <button class="btn btn-info" href="#" onclick="borradorSubmit()"><i class="icon-arrow-up icon-white"></i>Guardar borrador</button>
+      <button class="btn btn-primary" href="#" onclick="normalSubmit()"><i class="icon-ok icon-white"></i>Terminar</button>
+    </div>
+  </div>
+<br />
+
+<div id="my-accordion" class="accordion">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a href="#collapse-datos1" data-parent="#my-accordion" data-toggle="collapse" class="accordion-toggle btn-primary"><i class="icon-th-list icon-white"></i> Datos del Documento Principal</a>
+        </div>
+        <div class="accordion-body collapse in" id="collapse-datos1">
+            <div class="accordion-inner">
+
+    <div class="container">
+      <div class="control-group">
+      </div>
+
+        <div class="row">
+          <div class="span4">
+              <?php echo $this->form->ctr_fecha_salida; //tabla smo_tra_transporte ?> 
+              <?php echo $this->form->des_id_destinatario; ?>
+              <?php echo $this->form->des_rut; ?>
+              <?php echo $this->form->des_direccion; ?>
+              <?php echo $this->form->ctr_ciudad_salida; ?>
+              <?php echo $this->form->ctr_nombre; ?>
+              <?php echo $this->form->ctr_costo; ?>
+          </div>
+          <div class="span4">
+              <?php echo $this->form->des_id_destinatario2; ?>
+              <?php echo $this->form->des_rut2; ?>
+              <?php echo $this->form->dop_giro; ?>
+              <?php echo $this->form->des_direccion2; ?>
+              <?php echo $this->form->ctr_ciudad_llegada; ?>
+              <?php echo $this->form->des_comuna; ?>
+              <?php echo $this->form->des_region; ?>
+          </div>
+          <div class="span4">
+              <?php echo $this->form->ctr_fecha_llegada; ?>
+              <?php echo $this->form->dop_numero_identificador; ?>
+              <?php echo $this->form->dop_orden_compra; ?>
+              <?php echo $this->form->dos_numero_identificador; ?>
+              <?php echo $this->form->mpa_id_modalidad_pago; ?>
+          </div>
+        </div>
+
+    </div>
+
+            </div><!-- .accordion-inner -->
+        </div><!-- .accordion-body -->
+    </div><!-- .accordion-group -->
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a href="#collapse-datos2" data-parent="#my-accordion" data-toggle="collapse" class="accordion-toggle btn-primary"><i class="icon-th-list icon-white"></i> Mercadería de la transacción</a>
+        </div>
+        <div class="accordion-body collapse" id="collapse-datos2">
+            <div class="accordion-inner">
+
+<table class="table table-bordered table-striped container">
+  <tr>
+    <th class="span4">Código</th>
+    <th class="span1">Foto</th>
+    <th class="span2">Artículo</th>
+    <th class="span2">Color</th>
+    <th class="span3">Acción</th>
+  </tr>
+  <tr>
+    <td>
+      <div class="input-append span2">
+      <?php echo $this->form->mer_codigo; ?>
+      <?php echo $this->form->btn_mer_codigo; ?>        
+      </div>
+    </td>
+    <td><button id="botonFoto" class="btn" data-toggle="modal" onMouseOver="cargarFoto()"><i class="icon-search"></i></button>
+        <?php echo $this->form->mer_foto; ?>
+    </td>
+    <td><?php echo $this->form->mer_articulo; ?></td>
+    <td><?php echo $this->form->col_nombre; ?></td>
+    <td>
+      <div>
+      <button name="botonGuardar" id="botonGuardar" type="button" class="btn btn-info jumper" onclick="guardarString()" tabindex="10">Agregar</button>
+      <button name="botonLimpiar" id="botonLimpiar" type="button" class="btn" onclick ="limpiarString()">Limpiar</button>
+      </div>
+    </td>
+  </tr>
+</table>
+<table class="table table-bordered table-striped container">
+  <tr>
+    <th class="span2">Cajas</th>
+    <th class="span6">Tallas y Cantidad por Caja</th>
+    <th class="span2">Cant. Mercadería</th>
+    <th class="span2">Total Monto Mercadería</th>
+  </tr>
+  <tr>
+    <td><?php echo $this->form->f_num_cajas; ?> x</td>
+    <td><div>
+        <table class="table-bordered table-condensed">
+          <tr>
+            <td>Tallas:</td>
+            <td><input type="text" class="span1" id="talla0" readonly="readonly" /></td>
+            <td><input type="text" class="span1" id="talla1" readonly="readonly" /></td>
+            <td><input type="text" class="span1" id="talla2" readonly="readonly" /></td>
+            <td><input type="text" class="span1" id="talla3" readonly="readonly" /></td>
+            <td><input type="text" class="span1" id="talla4" readonly="readonly" /></td>
+            <td><input type="text" class="span1" id="talla5" readonly="readonly" /></td>
+          </tr>
+          <tr>
+            <td>Cantidad:</td>
+            <td><input type="text" class="span1 jumper" id="cant0" value="0" onchange="calcularTotalCajas()" tabindex="4" /></td>
+            <td><input type="text" class="span1 jumper" id="cant1" value="0" onchange="calcularTotalCajas()" tabindex="5"  /></td>
+            <td><input type="text" class="span1 jumper" id="cant2" value="0" onchange="calcularTotalCajas()" tabindex="6"  /></td>
+            <td><input type="text" class="span1 jumper" id="cant3" value="0" onchange="calcularTotalCajas()" tabindex="7"  /></td>
+            <td><input type="text" class="span1 jumper" id="cant4" value="0" onchange="calcularTotalCajas()" tabindex="8"  /></td>
+            <td><input type="text" class="span1 jumper" id="cant5" value="0" onchange="calcularTotalCajas()" tabindex="9"  /></td>
+          </tr>
+        </table>
+        
+      </div></td>
+      <td>
+        <input id="cant_mercaderia" type="text" class="span1" value="0" readonly="readonly" />
+        <br /><b>Monto Unitario Neto</b><br />
+        <?php echo $this->form->mer_costo; ?>
+      </td>
+      <td><?php echo $this->form->f_total_mercaderia; ?></td>
+  </tr>
+  </table>
+
+<table class="table table-bordered table-striped container">
+    <tr class="info">
+    <td class="span2"><b>Neto ($)</b><br /><?php echo $this->form->t_neto; ?></td>
+    <td class="span2"><b>Descuento (%)</b><br /><?php echo $this->form->t_descuento; ?></td>
+    <td class="span2"><b>Subtotal ($)</b><br /><?php echo $this->form->t_subtotal; ?></td>
+    <td class="span2"><b>IVA (%)</b><br /><?php echo $this->form->t_iva; ?></td>
+    <td class="span2"><b>Total ($)</b><br /><?php echo $this->form->t_total; ?></td>
+    </tr>
+ </table>
+<?php echo $this->form->t_suma_subtotal; ?>
+            </div><!-- .accordion-inner -->
+        </div><!-- .accordion-body -->
+    </div><!-- .accordion-group -->
+</div>
+
+<table id="stringMercanciaTable" class="table table-bordered table-condensed">
+  <thead><th>Código</th><th>Cant. Cajas</th><th colspan="6">Tallas y Cantidad</th><th>Cant. Mercadería</th><th>Monto Total</th></thead>
+  <tbody></tbody>
+</table>
+<div id="stringMercancia"></div>
+<?php echo $this->form->stringMercanciaInput; ?>
+<?php echo $this->form->tipoSubmit; ?>
+<?php echo $this->form->returnUrl; ?>
+</div>
+
+</form>
+
+<script>
+$('document').ready(function() {
+    $('#my-accordion').on('show hide', function() {
+        $(this).css('height', 'auto');
+    });
+    $('#my-accordion').collapse({ parent: true, toggle: true }); 
+});
+
+$( "#ctr_fecha_salida" ).datepicker({
+  "format": "dd/mm/yyyy",
+  "weekStart": 1,
+  "autoclose": true});
+
+$( "#ctr_fecha_llegada" ).datepicker({
+  "format": "dd/mm/yyyy",
+  "weekStart": 1,
+  "autoclose": true});
+
+</script>
+
+<script>
+function borradorSubmit(){
+  $('#tipoSubmit').val('borrador');
+  submit();
+}
+function normalSubmit(){
+  $('#tipoSubmit').val('');
+  submit();
+}
+
+function cargarFoto(){
+  if($('#mer_foto').val() != ""){
+  $('#botonFoto').attr('href',"#modalFoto");
+  $('#fotoPopup').attr("src", '/img/mercaderia/'+ $('#mer_foto').val() );
+  $('#botonFoto').click();
+  }
+  else{
+    return false;
+  }
+}
+
+function guardarString(){
+  var inicioStr = $('#stringMercancia').html();
+  var inicioStrInput = $('#stringMercanciaInput').val();
+  
+  if( inicioStr != ""){
+    inicioStr +='<br />';
+    inicioStrInput +='-';
+  }
+  var inventarioStr=
+    '<td>'+$('#mer_codigo').val()+'</td><td>'+$('#f_num_cajas').val()+'</td>';
+  var inventarioStrInput= 
+    '|'+$('#mer_codigo').val()+'|'+$('#f_num_cajas').val()+'|';
+  
+  for(var i=0; i<6; i++){
+    inventarioStr+= '<td>Talla:'+($('#talla'+i).val() +'<br />Cant.:'+ $('#cant'+i).val() +'</td>');
+    inventarioStrInput+=($('#talla'+i).val() +','+ $('#cant'+i).val() +'|');
+  }
+  inventarioStr+= '<td>'+$('#cant_mercaderia').val() +'</td>';
+  inventarioStrInput+= $('#cant_mercaderia').val() +'|';
+  
+  inventarioStr+= '<td>'+$('#f_total_mercaderia').val() +'</td>';
+  inventarioStrInput+= $('#f_total_mercaderia').val() +'|';
+  
+  $('#stringMercanciaTable').find('tbody:last').append("<tr>"+inventarioStr+"</tr>");
+  //$('#stringMercancia').html( inicioStr + inventarioStr );
+  $('#stringMercanciaInput').val( inicioStrInput + inventarioStrInput );
+  
+  
+  var sumaSubtotal = parseInt( $('#t_suma_subtotal').val() ) + parseInt( $('#f_total_mercaderia').val() );
+  $('#t_suma_subtotal').val( sumaSubtotal );
+  calcularValoresTotales();
+}
+
+function limpiarString(){
+  //$('#stringMercancia').html("");
+  $("#stringMercanciaTable tbody tr").remove();
+  $('#stringMercanciaInput').val("");
+  $('#t_suma_subtotal').val('0');
+  $('#t_neto').val('0');
+  $('#t_descuento').val('0');
+  $('#t_subtotal').val('0');
+  $('#t_total').val('0');
+}
+
+function calcularTotalCajas(){
+  if( $('#f_num_cajas').val() == "" )            $('#f_num_cajas').val('0');
+  if( $('#f_total_mercaderia').val() == "" )     $('#f_total_mercaderia').val('0');
+  if( $('#cant_mercaderia').val() == "" )        $('#cant_mercaderia').val('0');
+  if( $('#mer_costo').val() == "" )              $('#mer_costo').val('0');
+
+  var sumaTallas = 0;
+  for(var i=0; i<6; i++){
+  if( $('#cant'+i).val() == "" )               $('#cant'+i).val('0');
+    sumaTallas += parseInt( $('#cant'+i).val() );
+  }
+  var totalCajas = parseInt(  $('#f_num_cajas').val() );
+  $('#cant_mercaderia').val( totalCajas * sumaTallas );
+  $('#f_total_mercaderia').val( parseInt( $('#cant_mercaderia').val() ) * parseInt(  $('#mer_costo').val() ) );
+  calcularValoresTotales();
+}
+
+function calcularValoresTotales(){
+  if( $('#t_neto').val() == "" )          $('#t_neto').val('0');
+  if( $('#t_subtotal').val() == "" )      $('#t_subtotal').val('0');
+  if( $('#t_iva').val() == "" )           $('#t_iva').val('0');
+  if( $('#t_descuento').val() == "" )     $('#t_descuento').val('0');
+  if( $('#t_suma_subtotal').val() == "" ) $('#t_suma_subtotal').val('0');
+  //var t_neto = '0';
+  var t_neto =      parseInt( $('#t_suma_subtotal').val() );
+  var t_subtotal =  parseInt( t_neto - (t_neto * ( parseInt($('#t_descuento').val())/100 ) ) );
+  var t_total =     parseInt( t_subtotal + ( t_subtotal * ( parseInt($('#t_iva').val())/100 ) ) );
+  $('#t_neto').val( t_neto );                   // a NETO SE LE APLICA DCTO
+  $('#t_subtotal').val( t_subtotal );           //  a SUBTOTAL SE LE APLICA IVA
+  $('#t_total').val( t_total );                 //TOTAL
+}
+
+function getDataMercaderia(){
+  var valor = $('#mer_codigo').val();
+  if( valor != null && valor != "" ){
+    var mercaderia = parseInt( valor );
+    if( mercaderia > 0){
+      $.post('ajaxfrombd', {mercaderia: mercaderia}, function (response){
+        var record = response;
+        $('#mer_articulo').val(record[0].mer_articulo);
+        $('#col_nombre').val(record[0].col_nombre);
+        $('#mer_foto').val(record[0].mer_foto);
+        $('#mer_costo').val(record[0].mer_costo);
+        //tallas
+        var i;
+        for(i=0; i<=6 ; i++){
+          if( $('#talla'+i).val() != null ){
+            $('#talla'+i).val(record[i].tal_talla);            
+          }else{
+            $('#talla'+i).val('0');
+          }
+        }
+        
+      }, 'json');
+    } else {
+        alert('Por favor pon un número mayor a 0.');
+    }
+  }else{
+    $('#mer_articulo').val("");
+    $('#col_nombre').val("");
+    $('#mer_foto').val("");
+    $('#mer_costo').val("");
+    for(i=0; i<=6 ; i++){
+      $('#talla'+i).val('0');
+    }
+  }
+}
+
+function getDataSalida(destinatario_id) {
+//    resetData(true);
+var destinatario = parseInt(destinatario_id);
+    if (destinatario > 0) {
+        $.post('ajaxfrombd', {destinatario: destinatario, tipo: 'salida'}, function (response) {
+                var record = response;
+                $('#des_rut').val(record[0].des_rut);
+                $('#des_direccion').val(record[0].des_direccion);
+                $('#ctr_ciudad_salida').val(record[0].des_ciudad);
+        }, 'json');
+    } else {
+        alert('#Por favor pon un número mayor a 0');
+    }
+  }
+  
+function getDataLlegada(destinatario_id) {
+var destinatario = parseInt(destinatario_id);
+    if (destinatario > 0) {
+        $.post('ajaxfrombd', {destinatario: destinatario, tipo: 'llegada'}, function (response) {
+                var record = response;
+                $('#des_rut2').val(record[0].des_rut);
+                $('#ctr_ciudad_llegada').val(record[0].des_ciudad);
+                $('#dop_giro').val(record[0].des_tipo);                 //dato temporal
+                $('#des_comuna').val(record[0].des_comuna);
+                $('#des_region').val(record[0].des_region);
+                $('#des_direccion2').val(record[0].des_direccion);
+        }, 'json');
+    } else {
+        alert('#Por favor pon un número mayor a 0');
+    }
+  }
+
+window.onload=function(){
+  getDataSalida( $('#des_id_destinatario').val() );
+  getDataLlegada( $('#des_id_destinatario2').val() );
+};
+
+$("document").ready(function(){             //RECORRER LOS CAMPOS CON TAB
+  $('[class*="jumper"]').keypress(function(event){
+    if(event.which == 43){                  //AL HACER CLIC EN EL SIGNO 'MAS' (+)
+//    if(event.which == 13){                  //AL HACER CLIC EN EL SIGNO ENTER
+    cb = parseInt($(this).attr('tabindex'));
+      if(cb == 10) cb = 0;
+      if ( $(":input[tabindex='" + (cb + 1) + "']") != null) {
+        $(":input[tabindex='" + (cb + 1) + "']").focus();
+        $(":input[tabindex='" + (cb + 1) + "']").select();
+        //alert(cb);
+        return false;
+      }
+    }
+  });
+});
+
+$(document).ready(function() {               // ELIMINAR ENTER PARA ENVIAR FORM
+    $("input:not(button)").keypress(function(e) {
+        if (e.which == 13 ) {
+            e.preventDefault();
+            return false;
+        }
+    });
+});
+
+/*
+$('input').bind("change keyup input",function() {
+  $('#mer_costo').currency({ region: 'CLP', thousands: '.', decimal: ',', decimals: 0 });
+  $('#f_total_mercaderia').currency({ region: 'CLP', thousands: '.', decimal: ',', decimals: 0 });
+  $('#t_neto').currency({ region: 'CLP', thousands: '.', decimal: ',', decimals: 0 });
+  $('#t_descuento').currency({ region: 'CLP', thousands: '.', decimal: ',', decimals: 0 });
+  $('#t_subtotal').currency({ region: 'CLP', thousands: '.', decimal: ',', decimals: 0 });
+  $('#t_total').currency({ region: 'CLP', thousands: '.', decimal: ',', decimals: 0 });
+});
+
+function uncurrency(){
+  $('#mer_costo').currency({
+    region: 'CLP', // The 3 digit ISO code you want to display your currency in
+    thousands: '', // Thousands separator
+    decimal: '.',   // Decimal separator
+    decimals: 0, // How many decimals to show
+    hidePrefix: true, // Hide any prefix
+    hidePostfix: true // Hide any postfix
+  });
+  $('#f_total_mercaderia').currency({
+    region: 'CLP', // The 3 digit ISO code you want to display your currency in
+    thousands: '', // Thousands separator
+    decimal: '.',   // Decimal separator
+    decimals: 0, // How many decimals to show
+    hidePrefix: true, // Hide any prefix
+    hidePostfix: true // Hide any postfix
+  });
+  $('#t_neto').currency({
+    region: 'CLP', // The 3 digit ISO code you want to display your currency in
+    thousands: '', // Thousands separator
+    decimal: '.',   // Decimal separator
+    decimals: 0, // How many decimals to show
+    hidePrefix: true, // Hide any prefix
+    hidePostfix: true // Hide any postfix
+  });
+  $('#t_descuento').currency({
+    region: 'CLP', // The 3 digit ISO code you want to display your currency in
+    thousands: '', // Thousands separator
+    decimal: '.',   // Decimal separator
+    decimals: 0, // How many decimals to show
+    hidePrefix: true, // Hide any prefix
+    hidePostfix: true // Hide any postfix
+  });
+    $('#t_subtotal').currency({
+    region: 'CLP', // The 3 digit ISO code you want to display your currency in
+    thousands: '', // Thousands separator
+    decimal: '.',   // Decimal separator
+    decimals: 0, // How many decimals to show
+    hidePrefix: true, // Hide any prefix
+    hidePostfix: true // Hide any postfix
+  });  $('#t_total').currency({
+    region: 'CLP', // The 3 digit ISO code you want to display your currency in
+    thousands: '', // Thousands separator
+    decimal: '.',   // Decimal separator
+    decimals: 0, // How many decimals to show
+    hidePrefix: true, // Hide any prefix
+    hidePostfix: true // Hide any postfix
+  });
+}
+*/
+</script>

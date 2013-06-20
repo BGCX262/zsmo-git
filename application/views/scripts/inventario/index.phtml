@@ -1,0 +1,147 @@
+<?php
+$this->title = "Inventario de bodega";
+$this->headTitle($this->title);
+?>
+<div class="modal hide fade" id="modalFoto">
+<!--<div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div> -->
+<div class="modal-body">
+<img id="fotoPopup" src="" class="img-rounded">
+</div>
+<!--<div class="modal-footer"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">Cerrar</button></div> -->
+</div>
+
+<p>
+  <a href="<?php //echo $this->url(array('controller'=>'inventario','action'=>'add')); ?>" class="btn btn-primary">Agregar Excepción de Inventario</a>
+</p>
+
+<div class="fuelux">
+  <table id="MyGrid" class="table table-bordered datagrid table-condensed">
+  <thead>
+    <tr>
+    <th>
+    <span class="datagrid-header-title">Inventario de Bodega</span>
+    <div class="datagrid-header-left"></div>
+    <div class="datagrid-header-right">
+    <div class="input-append search">
+    <input type="text" class="input-medium" placeholder="Buscar..."><button class="btn"><i class="icon-search"></i></button>
+    </div>
+    </div>
+    </th>
+    </tr>
+  </thead>
+  <tfoot>
+    <tr>
+    <th>
+    <div class="datagrid-footer-left pull-left" style="display:none;">
+    <div class="grid-controls">
+    <span><span class="grid-start"></span> - <span class="grid-end"></span> de <span class="grid-count"></span></span>
+    <select class="grid-pagesize"><option>10</option><option>20</option><option>50</option><option>100</option></select>
+    <span>Por página</span>
+    </div>
+    </div>
+    <div class="datagrid-footer-right pull-right" style="display:none;">
+    <div class="grid-pager">
+    <button class="btn grid-prevpage"><i class="icon-chevron-left"></i></button>
+    <span>Pág.</span>
+    <div class="input-append dropdown combobox">
+    <input class="span1" type="text"><button class="btn" data-toggle="dropdown"><i class="caret"></i></button>
+    <ul class="dropdown-menu"></ul>
+    </div>
+    <span>de <span class="grid-pages"></span></span>
+    <button class="btn grid-nextpage"><i class="icon-chevron-right"></i></button>
+    </div>
+    </div>
+    </th>
+    </tr>
+  </tfoot>
+  </table>
+</div>
+
+<script type="text/javascript">
+function cargarFoto(foto,i){
+  if(foto != "" && foto != null){
+    $('#botonFoto'+i).attr('href',"#modalFoto");
+    $('#fotoPopup').attr("src", '/img/mercaderia/'+ foto );
+//    $('#botonFoto'+i).click();
+  }
+  else{
+    return false;
+  }
+}
+  
+$(function () {
+  $('#BrandLink, #ReturnLink').click(function () {
+    $('body').data('scrollspy').activate('#controls');
+  });
+
+  // INITIALIZING THE DATAGRID
+  var dataSource = new StaticDataSource({
+      columns: [{
+          property: 'caja_tarea',
+          label: 'Cant. Cajas Aprox.',
+          sortable: true
+      }, {
+          property: 'inv_fecha',
+          label: 'Fecha',
+          sortable: true
+      }, {
+          property: 'bod_nombre',
+          label: 'Bodega',
+          sortable: true
+      }, {
+          property: 'inve_nombre',
+          label: 'Estado',
+          sortable: true
+      }, {
+          property: 'mer_codigo',
+          label: 'Código',
+          sortable: true
+      }, {
+          property: 'mer_articulo',
+          label: 'Artículo',
+          sortable: true
+      }, {
+          property: 'col_nombre',
+          label: 'Color',
+          sortable: true
+      }, {
+          property: 'mer_costo',
+          label: 'Costo',
+          sortable: true
+      }, {
+          property: 'cantidad',
+          label: 'Cant. Unidades',
+          sortable: true
+      }, {
+          property: 'acciones',
+          label: 'Acciones',
+          sortable: false
+      }
+    ],
+      data: sampleData.datos,
+      delay: 250
+  });
+
+  $('#MyGrid').datagrid({
+      dataSource: dataSource
+  });
+});
+//*******************************************************************************
+//*********************************** D A T A ***********************************
+(function (root, factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+	} else {
+		root.sampleData = factory();
+	}
+}(this, function () {
+	return {
+                  "datos": <?php echo json_encode( $this->inventarios ); ?>
+	};
+}));
+
+</script>
+
+<?php
+//var_dump($this->inventarios);
+?>
