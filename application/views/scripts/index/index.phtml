@@ -14,14 +14,14 @@
 ?>
     </div>
   </div>
-  <div class="span9">
+  <div class="span9 well">
     <h3>Seleccione Perfil:</h3>
 <?php    //BOTONES DE PERFILES SEGUN USUARIO
       foreach($this->usuariohasperfiles as $per){
-        echo '<a class="btn btn-large btn-block"  href="/'.$per->per_nombre_dir.'">';
+        echo '<a class="btn btn-large btn-block btn-primary"  href="/'.$per->per_nombre_dir.'">';
         echo '<h3>'.$per->per_nombre.'</h3>';
         echo '</a>';
-      } 
+      }
 ?>
   </div>
 </div>

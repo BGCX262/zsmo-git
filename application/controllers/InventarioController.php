@@ -39,6 +39,3 @@ class InventarioController extends Zend_Controller_Action
 
 
 }
-
-
-
