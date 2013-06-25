@@ -93,6 +93,15 @@ class Application_Model_DbTable_Usuarios extends Zend_Db_Table_Abstract
         $this->update($data, 'usu_id_usuario = ' . (int)$id);
     }
     
+    public function cambiarpassUsuario($id, $password){
+      $salt = md5( uniqid(rand(), TRUE));
+      $data = array(
+            'usu_passwd' => md5($password.$salt),
+            'usu_passwd_salt' => $salt,
+        );
+      $this->update($data, 'usu_id_usuario = ' . (int)$id);
+    }
+    
     public function deleteUsuario($id)
     {
         $this->delete('usu_id_usuario = ' . (int)$id);

@@ -17,10 +17,10 @@ class Application_Form_Login extends Zend_Form
         padding: 210px 29px 29px;
         margin: 0 auto 20px;
         background-color: #E31F24;
-        background-image: url("/img/logosmo01xx.png");
+        background-image: url("/img/logosmo01.png");
         background-repeat: no-repeat;
         background-position: top center;
-        border: 1px solid #e5e5e5;
+        border: 0px solid #e5e5e5;
         -webkit-border-radius: 5px;
            -moz-border-radius: 5px;
                 border-radius: 5px;

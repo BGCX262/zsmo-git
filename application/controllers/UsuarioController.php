@@ -3,14 +3,16 @@
 class UsuarioController extends Zend_Controller_Action
 {
 
-    public function init() {
+    public function init()
+    {
       if(!Zend_Auth::getInstance()->hasIdentity())  
-      {  
+      {
           $this->_redirect('/login/index');  
       }
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
       $usuarios = new Application_Model_DbTable_Usuarios();
       $arrayDatos = $usuarios->indexMiniUsuario();
       foreach ($arrayDatos as $key => $value) {
@@ -27,8 +29,9 @@ class UsuarioController extends Zend_Controller_Action
       }
       $this->view->usuariosmini = $arrayDatos;
     }
-    
-    public function addAction() {
+
+    public function addAction()
+    {
       $form = new Application_Form_Usuario();
       $form->submit->setLabel('Agregar nuevo usuario');
       $form->submit->setAttrib('class','btn btn-primary');
@@ -66,7 +69,8 @@ class UsuarioController extends Zend_Controller_Action
       }
     }
 
-    public function editAction(){
+    public function editAction()
+    {
       $form = new Application_Form_Usuario();
       $form->submit->setLabel('Modificar usuario');
       $form->submit->setAttrib('class','btn btn-primary');
@@ -139,7 +143,6 @@ class UsuarioController extends Zend_Controller_Action
           $this->view->usuarios = $usuarios->getUsuario($id);
       }
     }
-    
 
     public function indexajaxAction()
     {
@@ -155,7 +158,43 @@ class UsuarioController extends Zend_Controller_Action
       echo $json;
       //echo "probando";
     }
+
+    public function cambiarpassAction()
+    {
+      $form = new Application_Form_Cambiarpass();
+      $form->submit->setLabel('Cambiar clave de Usuario');
+      $form->submit->setAttrib('class','btn btn-primary');
+      $this->view->form = $form;
+      if ( $this->getRequest()->isPost() ){
+        $formData = $this->getRequest()->getPost();
+        //revisar si la antigua es la clave del usuario
+        $usuario = new Application_Model_DbTable_Usuarios();
+        $usuarioArr = $usuario->getUsuario($formData['usu_id_usuario']);
+          if ( $form->isValid($formData) && md5($formData['usu_password_old'].$usuarioArr['usu_passwd_salt']) == $usuarioArr['usu_passwd'] ){
+              $id =         $form->getValue('usu_id_usuario');
+              $password =   $form->getValue('usu_password');
+
+              $usuarios = new Application_Model_DbTable_Usuarios();
+              $usuarios->cambiarpassUsuario($id, $password);
+              //FINALIZADO
+              $form->submit->setAttrib('class','btn disabled');
+              echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Cambio realizado.</div>';
+          } else {
+              $form->populate($formData);
+              echo '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>Error.</div>';
+          }
+      } else {    //Llena el formulario con los datos de la BD
+        $id = $this->_getParam('id', 0);
+        if( $id > 0 ){
+            $user = new Application_Model_DbTable_Usuarios();
+            $filaUser= $user->getUsuario($id);
+            $form->populate( $filaUser );
+        }
+      }
+    }
 }
+
+
 
 
 

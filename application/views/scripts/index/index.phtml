@@ -18,9 +18,15 @@
     <h3>Seleccione Perfil:</h3>
 <?php    //BOTONES DE PERFILES SEGUN USUARIO
       foreach($this->usuariohasperfiles as $per){
-        echo '<a class="btn btn-large btn-block btn-primary"  href="/'.$per->per_nombre_dir.'">';
-        echo '<h3>'.$per->per_nombre.'</h3>';
-        echo '</a>';
+        if($per->per_nombre_dir == 'encven' || $per->per_nombre_dir == 'encarea'){
+          echo '<a class="btn btn-large btn-block btn-primary" disabled="disabled">';
+          echo '<h3>'.$per->per_nombre.'</h3>';
+          echo '</a>';
+        }else{
+          echo '<a class="btn btn-large btn-block btn-primary"  href="/'.$per->per_nombre_dir.'">';
+          echo '<h3>'.$per->per_nombre.'</h3>';
+          echo '</a>';
+        }
       }
 ?>
   </div>

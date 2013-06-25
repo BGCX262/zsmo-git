@@ -1,4 +1,28 @@
-      <!-- BARRA NAVEGACION -->
+<!-- Modal -->
+<div class="modal hide" id="modal-item">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Config. de Usuario</h3>
+    </div>
+    <div class="modal-body">
+        <iframe src="/usuario/edit/id/<?php echo $this->id; ?>" frameborder="0" class="span4" height="500px"></iframe>
+    </div>
+</div>
+<script>
+$('body').on('hidden', '.modal', function () {
+  $(this).removeData('modal');
+});
+</script>
+
+<style>
+.modal-body {
+  max-height: 600px;
+  max-width: 600px;
+}
+</style>
+<!-- fin modal -->
+
+<!-- BARRA NAVEGACION -->
   <div class="navbar navbar-fixed-top navbar-inverse" >
       <div class="navbar-inner">
         <div class="container">
@@ -30,7 +54,9 @@
   }
     endforeach; ?>
     <li class="divider"></li>
-    <li><a href="/usuario/edit/id/<?php echo $this->id; ?>"><i class="icon-cog"></i> Config. de Usuario</a></li>
+    <li>
+      <a data-toggle="modal" data-target="#modal-item"><i class="icon-cog"></i> Config. de Usuario</a>
+    </li>
     <li><a href="/login/logout"><i class="icon-off"></i> Salir</a></li>
     </ul>
     </li>

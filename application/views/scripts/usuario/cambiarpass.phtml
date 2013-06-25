@@ -1,0 +1,18 @@
+<div class="container">
+  <form id="formcambiarpass" method="post">
+  <?php
+  $this->title = "Cambiar clave de Usuario";
+  $this->headTitle($this->title);
+  echo '<h3>Cambiar clave de Usuario</h3>';
+  $this->form->usu_password_old->setLabel('Clave antigua:');
+  $this->form->usu_password->setLabel('Nueva clave:');
+  $this->form->usu_password_2->setLabel('Reingrese nueva clave:');
+  
+  echo $this->form->usu_id_usuario;
+  echo $this->form->usu_password_old;
+  echo $this->form->usu_password;
+  echo $this->form->usu_password_2;
+  echo $this->form->submit;
+  ?>
+  </form>
+</div>

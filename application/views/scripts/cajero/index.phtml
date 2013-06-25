@@ -2,59 +2,35 @@
 <div class="container well">
   <h1>Perfil Cajero</h1>
   <div class="row-fluid">
-  <div class="span6">
-    
-    <div class="well btn btn-danger" style="height:200px;">
+    <a class="span6 btn btn-primary btn-large" style="height:200px;" href="/cajero/ventas">
       <h1>Ventas</h1>
-      <p>Este proceso muestra la lista de transacciones del sistema, realizando búsquedas para filtrar sus resultados y revisar en detalle una transacción.</p>
-      <p>
-      <a class="btn btn-primary btn-large pull-right" href="/cajero/ventas">Ir</a>
-      </p>
-    </div>
-
-    <div class="well" style="height:200px;">
-      <h1>Inventario</h1>
-      <p>Este proceso muestra la lista de cierres de caja realizadas en el sistema, con la posibilidad de revisarlas en detalle.<br><br></p>
-      <p>
-      <a class="btn btn-primary btn-large pull-right" href="/cajero/inventario">Ir</a>
-      </p>
-    </div>
-    
-    <div class="well" style="height:200px;">
-      <h1>Abonos</h1>
-      <p>Este proceso muestra la lista de cierres de caja realizadas en el sistema, con la posibilidad de revisarlas en detalle.<br><br></p>
-      <p>
-      <a class="btn btn-primary btn-large pull-right" href="/cajero/abonos">Ir</a>
-      </p>
-    </div>
-    
-  </div>
-  <div class="span6">
-    
-    <div class="well" style="height:200px;">
+      <p>Este proceso permite ingresar una nueva venta para el local.</p>
+    </a>
+    <a class="span6 btn btn-primary btn-large" style="height:200px;" href="/cajero/cierrecaja">
       <h1>Cierre de Caja</h1>
-      <p>Esta opción permite al Administrador, crear, modificar y eliminar los datos de las entidades clave del sistema. </p>
-      <p>
-      <a class="btn btn-primary btn-large pull-right" href="/cajero/cierrecaja">Ir</a>
-      </p>
-    </div>
-
-    <div class="well" style="height:200px;">
-      <h1>Cambios y/o Anulaciones</h1>
-      <p>Acceso directo a la base de datos del sistema. </p>
-      <p>
-      <a class="btn btn-primary btn-large pull-right" href="/cajero/cambiosanulaciones">Ir</a>
-      </p>
-    </div>
-    
-    <div class="well" style="height:200px;">
-      <h1>Crédito de SMO</h1>
-      <p>Acceso directo a la base de datos del sistema. </p>
-      <p>
-      <a class="btn btn-primary btn-large pull-right" href="/cajero/credito">Ir</a>
-      </p>
-    </div>
-    
+      <p>Este proceso permite realizar Entregas de venta y Cierres de caja. </p>
+    </a>
   </div>
+  <span>&nbsp;</span>
+  <div class="row-fluid">
+    <a class="span6 btn btn-primary btn-large" style="height:200px;" href="/cajero/inventario">
+       <h1>Inventario</h1>
+       <p>Este proceso muestra la lista de inventario disponible en la bodega del local.</p>
+    </a>
+    <a class="span6 btn btn-primary btn-large" style="height:200px;" href="/cajero/cambiosanulaciones">
+      <h1>Cambios y/o Anulaciones</h1>
+      <p>Este proceso se ocupa al recibir una boleta de parte de un cliente, para un cambio y/o reparación de una mercadería. </p>
+    </a>
+  </div>
+  <span>&nbsp;</span>
+  <div class="row-fluid">
+    <a class="span6 btn btn-primary btn-large" style="height:200px;" href="/cajero/abonos">
+     <h1>Abonos</h1>
+     <p>Esta pestaña muestra la lista de abonos por cliente, y permite ingresar un abono a un cliente nuevo.</p>
+    </a>
+    <a class="span6 btn btn-primary btn-large" style="height:200px;" href="/cajero/credito">
+      <h1>Crédito de SMO</h1>
+      <p>Permite ver la lista de clientes con crédito de SMO y sus estados de cuenta. </p>
+    </a>
   </div>
 </div>
