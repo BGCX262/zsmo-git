@@ -77,8 +77,7 @@ class Application_Form_Usuario extends Zend_Form
 //************* contacto
         $this->addDisplayGroup(
           array( 'usu_nombre', 'usu_apellido_1', 'usu_apellido_2', 'usu_fono_1', 'usu_fono_2', 'usu_direccion', 'usu_ciudad' ),
-          'personal',
-          array('legend' => 'Información personal') );
+          'personal' );
         
         $personal = $this->getDisplayGroup('personal');
         
@@ -90,9 +89,8 @@ class Application_Form_Usuario extends Zend_Form
 
 //************* sistema
         $this->addDisplayGroup(
-          array( 'usu_rut', 'usu_password', 'usu_password_2', 'per_id_perfil', 'usu_porcentaje_comision', 'submit' ),
-          'sistema',
-          array('legend' => 'Información de Sistema') );
+          array( 'usu_rut', 'usu_password', 'usu_password_2', 'per_id_perfil', 'usu_porcentaje_comision' ),
+          'sistema' );
         
         $sistema = $this->getDisplayGroup('sistema');
         

@@ -90,7 +90,7 @@ class UsuarioController extends Zend_Controller_Action
               $password =   $form->getValue('usu_password');
               $perfil =     $form->getValue('per_id_perfil');
               $comision =   $form->getValue('usu_porcentaje_comision');
-
+              
               $usuarios = new Application_Model_DbTable_Usuarios();
               $usuarios->updateUsuario($id, $rut, $nombre, $apellido_1, $apellido_2,
             $fono_1, $fono_2, $direccion, $ciudad, $password, $comision);
@@ -100,10 +100,13 @@ class UsuarioController extends Zend_Controller_Action
               foreach ($perfil as $idPerfil) :
                 $uhp->addUhp( $idPerfil, $id );
               endforeach;
-              
-              $this->_helper->redirector('index');
+
+              //FINALIZADO
+              $form->submit->setAttrib('class','btn disabled');
+              echo '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button>Cambio realizado.</div>';
           } else {
               $form->populate($formData);
+              echo '<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>Error.</div>';
           }
       } else {    //Llena el formulario con los datos de la BD
         $id = $this->_getParam('id', 0);

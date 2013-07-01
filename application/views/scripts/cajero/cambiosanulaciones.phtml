@@ -1,8 +1,20 @@
 <?php include('menucajero.phtml'); ?>
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Cajero</b> and script/action name <b>cambiosanulaciones</b></p>
+<div class="container well">
+<h3>
+  Cambios y/o Anulaciones
+</h3>
+  <div>
+    <?php echo $this->action('index', 'venta'); ?>
+  </div>
 </div>
 <script>
+$( "#textinput7" ).datepicker({
+  "format": "dd/mm/yyyy",
+  "weekStart": 1,
+  "autoclose": true});
+$( "#textinput8" ).datepicker({
+  "format": "dd/mm/yyyy",
+  "weekStart": 1,
+  "autoclose": true});
 recorrerLiPrincipal('cambiosanulaciones');
 </script>

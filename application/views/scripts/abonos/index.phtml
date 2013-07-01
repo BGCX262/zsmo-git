@@ -1,0 +1,321 @@
+<!-- TECLAS DE NAVEGACION -->
+<script>
+$(document).keydown(function (e) {
+  var keyCode = e.keyCode || e.which,
+      arrow = {left: 37, up: 38, right: 39, down: 40 };
+
+  switch (keyCode) {
+    case arrow.left:
+      flechaIzq();
+    break;
+    case arrow.up:
+      alert('UP');
+      $('input.jumper').siblings().next().focus();
+    break;
+    case arrow.right:
+      flechaDer();
+    break;
+    case arrow.down:
+      alert('DOWN');
+      $('input.jumper').siblings().prev().focus();
+    break;
+  }
+});
+
+function flechaIzq(){
+  var newIndice = $('#listaTab li.active').prev().index();
+  if(newIndice == '-1'){
+    newIndice = $('#listaTab li.active').siblings().last().index();
+  }
+  var selector = '#listaTab li:eq('+newIndice+') a';
+  $(selector).tab('show');
+}
+
+function flechaDer(){
+  var newIndice = $('#listaTab li.active').next().index();
+  if(newIndice == '-1'){
+    newIndice = $('#listaTab li.active').siblings().first().index();
+  }
+  var selector = '#listaTab li:eq('+newIndice+') a';
+  $(selector).tab('show');
+}
+
+</script>
+<!-- FIN TECLAS DE NAVEGACION -->
+<form id="formadd" method="post">
+<div class="container well">
+  <!-- * * * * * * *BARRA SUPERIOR * * * * * * *   -->
+  <div class="row">
+    <div class="span6">
+      <b>Local:
+      <?php echo $this->form->loc_nombre->getValue(); ?>
+      </b>&nbsp;
+      <input placeholder="Boleta nro." type="text">
+    </div>
+    <div class="span4 offset2">
+      <h4><b><div id="top_total_final"></div></b></h4>
+    </div>
+  </div>
+<div class="tabbable">
+  <!-- * * * * * * * PESTAÑAS DE LOS TABS * * * * * -->
+  <ul class="nav nav-tabs" id="listaTab">
+    <li id="htab1" class="active"> <a href="#tab1" data-toggle="tab"><span class="badge">1</span> Agrega Vendedor</a></li>
+    <li id="htab2">                <a href="#tab2" data-toggle="tab"><span class="badge">2</span> Agrega Inventario</a></li>
+    <li id="htab3">                <a href="#tab3" data-toggle="tab"><span class="badge">3</span> Forma de Pago</a></li>
+    <li id="htab4">                <a href="#tab4" data-toggle="tab"><span class="badge">4</span> Otro</a></li>
+    <li id="htab5">                <a href="#tab5" data-toggle="tab"><span class="badge">5</span> Finaliza Venta</a></li>
+  </ul>
+  <div class="tab-content">
+
+  <!-- * * * * * * * AGREGAR VENDEDOR ( TAB 1 ) * * -->
+  <div class="tab-pane active" id="tab1">
+      <div class="well btn-danger">
+        <table>
+          <tr>
+            <td><b>Asignar Vendedor:</b></td>
+          </tr>
+          <tr>
+            <td><b>&nbsp;</b></td>
+          </tr>
+          <tr>
+            <td>
+              <?php echo $this->form->usu_id_usuario; ?>
+            </td>
+          </tr>
+        </table>
+      </div>
+  </div>
+  <!-- * * * * * * * AGREGAR INVENTARIO ( TAB 2 ) * -->
+  <div class="tab-pane" id="tab2">
+      <div class="well btn-warning">
+        <div class="row">
+          <div class="span6">
+          <table class="table">
+              <tr>
+                <th class="span2">Código</th>
+                <th class="span2">Cantidad</th>
+                <th class="span2">Talla</th>
+              </tr>
+              <tr>
+                <td>
+                  <div class="input-append">
+                  <?php echo $this->form->mer_codigo; ?>
+                  <?php echo $this->form->btn_mer_codigo; ?>
+                  </div>
+                </td>
+                <td>
+                  <?php echo $this->form->f_num_mercaderia; ?>
+                </td>
+                <td>
+                  <select id="mer_id_mercaderia" onchange="getDataPrecio()" tabindex="4" class="input-mini jumper">
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <th>Artículo</th>
+                <th>Color</th>
+                <th>Precio</th>
+              </tr>
+              <tr>
+                <td><?php echo $this->form->mer_articulo; ?></td>
+                <td><?php echo $this->form->col_nombre; ?></td>
+                <td><?php echo $this->form->hme_precio; ?></td>
+              </tr>
+              <tr>
+                <td>
+                  <b>Total Precio: </b><?php echo $this->form->f_total_mercaderia; ?>
+                </td>
+                <td colspan="2"><br />
+                  <button name="botonGuardar" id="botonGuardar" type="button" class="btn btn-info jumper" onclick="guardarString()" tabindex="5">Agregar</button>
+                  <button name="botonLimpiar" id="botonLimpiar" type="button" class="btn" onclick ="limpiarString()">Limpiar</button>
+                </td>
+              </tr>
+          </table>
+        </div>
+          <div class="span5">
+          <td rowspan="5" class="span4">
+            <?php echo $this->form->mer_foto; ?>
+            <img id="mer_foto_mini" src="" class="img-rounded" height="200px" width="200px" float="left" />
+          </td>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- * * * * * * * FORMA DE PAGO ( TAB 3 ) * * *  -->
+  <div class="tab-pane" id="tab3">
+      <div class="row">
+        <div class="span6">
+          <div class="well btn-info">
+            <p>
+              <span><b>Forma de pago del cliente:</b></span>
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Forma de Pago</th>
+                  <th>Monto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <?php echo $this->form->tip_id_tipo_pago; ?>
+                  </td>
+                  <td>
+                    <?php echo $this->form->f_pago_monto; ?>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="span6">
+          <div class="well btn-success">
+            <p>
+              <span><b>Extras de pago:</b></span>
+            </p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Extra</th>
+                  <th>Valor</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Código Validación Cheque:</td>
+                  <td><?php echo $this->form->tphv_codigo_cheque; ?></td>
+
+                </tr>
+                <tr>
+                  <td>Nro. Cuotas:</td>
+                  <td><?php echo $this->form->tphv_cant_cuotas; ?></td>
+
+                </tr>
+                <tr>
+                  <td>Cuota Aprox.:</td>
+                  <td><?php echo $this->form->f_monto_cuota; ?></td>
+
+                </tr>
+                <tr>
+                  <td>Datos del Vale:</td>
+                  <td><?php echo $this->form->tphv_observacion_smo; ?></td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  <!-- * * * * * * * OTRO ( TAB 4 ) * * * * * * * * -->
+  <div class="tab-pane" id="tab4">
+        <div class="well">
+        <p>
+          <span><b>Otro:</b></span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th><span class="pull-left">Porcentaje (%)</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+              <?php echo $this->form->des_id_descuento; ?>
+              </td>
+              <td>
+              <?php echo $this->form->f_descuento_monto; ?>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+    </div>
+  <!-- * * * * * * * FINALIZAR VENTA ( TAB 5 )* *  -->
+    <div class="tab-pane" id="tab5">
+      <div class="row">
+        <div class="span6">
+          <p>
+            <span><b>Venta:</b></span>
+            <span class="pull-right"><button class="btn btn-mini" href="#tab1" data-toggle="tab">Agregar <img class="icon-plus"></button></span>
+          </p>
+          <div>
+            <ul class="thumbnails">
+              <li class="span2">
+                <div class="thumbnail">
+                  <img src="https://s3.amazonaws.com/jetstrap-site/images/what_icon.png">
+                  <h5>codigo</h5>
+                  <p>cantidad + precio</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="span6">
+          <div class="well">
+            <b>Productos:</b>
+            <ul>
+              <li>codigo, talla, color, cantidad, precio</li>
+              <li>codigo, talla, color, cantidad, precio</li>
+              <li>codigo, talla, color, cantidad, precio</li>
+              <li><b>Total: $129.800</b></li>
+            </ul>
+            <b>Resumen:</b>
+            <ul>
+              <li>Vendedor: Xasdasd Ysadasdasds</li>
+              <li>Forma Pago: Credito, $129000 , Efectivo: $800 </li>
+              <li>Descuento: $2000</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- * * * * * * * * * * FIN TABS  * * * * * * *  -->
+  </div>
+</div>
+
+  <!-- * * * * * * * TABLA DE LA VENTA (INV)* * * * -->
+  <div class="row">
+    <div class="span6">
+      <table id="stringMercanciaTable" class="table table-bordered table-condensed">
+      <thead><th>Código</th><th>Cantidad</th><th>Talla</th><th>Precio</th></thead>
+      <tbody></tbody>
+      </table>
+    </div>
+  <!-- * * * * * *  VALORES TOTALES DE LA VENTA * * -->
+    <div class="span6">
+      <table class="table pull-right table-condensed">
+        <tbody>
+          <tr>
+            <td>Total:</td><td><?php echo $this->form->f_total; ?></td>
+          </tr>
+          <tr>
+            <td>Dcto:</td><td><?php echo $this->form->f_dcto; ?></td>
+          </tr>
+          <tr>
+            <td>Vuelto:</td><td><?php echo $this->form->f_vuelto; ?></td>
+          </tr>
+          <tr>
+            <td>Total Final:</td><td><?php echo $this->form->f_total_final; ?></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- * * * * * * * BOTONERA BOTTOM '<' '>' 'OK'* -->
+  <ul class="pager">
+    <li><a href="#tab1" data-toggle="tab" class="btn-danger">[X]</a></li>
+    <li><a href="#tab1" data-toggle="tab">&lt;&lt;</a></li>
+    <li><a href="#tab2" data-toggle="tab" class="btn-success">&gt;&gt;</a></li>
+    <li><?php echo $this->form->submit; ?></li>
+  </ul>
+<?php echo $this->form->loc_nombre; ?>
+<?php echo $this->form->stringMercanciaInput; ?>
+<?php echo $this->form->tipoSubmit; ?>
+<?php echo $this->form->returnUrl; ?>
+</div>
+</form>

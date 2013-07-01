@@ -1,6 +1,25 @@
 <?php
 $this->title = "Modificar usuario";
 $this->headTitle($this->title);
-echo '<h3>Modificar usuario</h3>';
-echo $this->form;
 ?>
+<form id="formedit" method="post">
+<div class="well">
+  <h3>Modificar usuario</h3>
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active" id="htab1"> <a href="#tab1" data-toggle="tab">Info Personal</a></li>
+      <li id="htab2">                <a href="#tab2" data-toggle="tab">Info de Sistema</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+        <?php echo $this->form->personal; ?>
+      </div>
+      <div class="tab-pane" id="tab2">
+        <?php echo $this->form->sistema; ?>
+      </div>
+    </div>
+  </div>
+  <?php echo $this->form->submit; ?>
+</div>
+<?php echo $this->form->usu_id_usuario; ?>
+</form>

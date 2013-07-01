@@ -1,8 +1,8 @@
 <?php include('menucajero.phtml'); ?>
 <br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Cajero</b> and script/action name <b>abonos</b></p>
-</div>
+  <div>
+    <?php echo $this->action('index', 'abonos'); ?>
+  </div>
 <script>
 recorrerLiPrincipal('abonos');
 </script>

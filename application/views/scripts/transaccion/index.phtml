@@ -9,7 +9,7 @@ $this->headTitle($this->title);
       //window.location = url;
   }
 </script>
-<!-- Modal -->
+<!-- Modal OLD
 <div id="modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-remote="">
 <div class="modal-header">
 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -19,11 +19,45 @@ $this->headTitle($this->title);
 <div class="modal-footer">
 </div>
 </div>
+OLD fin modal -->
+
+<!-- Modal -->
+<div class="modal hide" id="modal-item2">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h3>Config. de Usuario</h3>
+    </div>
+    <div class="modal-body">
+        <iframe id="iframeTarget" src="" frameborder="0" class="span10" height="550px"></iframe>
+    </div>
+</div>
+<script>
+$('body').on('hidden', '.modal', function () {
+  $(this).removeData('modal');
+});
+
+function enviarUrl(tipourl){
+  switch(tipourl){
+    case 'fromproveedor':
+    $("#iframeTarget").attr('src','<?php echo $this->url(array('controller'=>'transaccion', 'action'=>'addfromproveedor'));?>');
+    $('#modal-item2').modal('show');
+    alert('asd');
+    break;
+  }
+}
+</script>
+
+<style>
+.modal-body {
+  max-height: 600px;
+  max-width: 800px;
+}
+</style>
 <!-- fin modal -->
 
 <h3>Lista de transacciones</h3>
 <p>
-    <div class="btn-group">
+    <div class="btn-group disabled">
     <div class="btn btn-primary disabled">Agregar transacción:</div>
     <a class="btn btn-primary" href="<?php echo $this->url(array('controller'=>'transaccion', 'action'=>'addfromproveedor'));?>"><i class="icon-arrow-down icon-white"></i>Desde proveedor</a>
     <a class="btn btn-primary" href="<?php echo $this->url(array('controller'=>'transaccion', 'action'=>'addtolocal'));?>"><i class="icon-share-alt icon-white"></i>Hacia local</a>
@@ -31,7 +65,15 @@ $this->headTitle($this->title);
     <a class="btn" href="<?php echo $this->url(array('controller'=>'transaccion', 'action'=>'addfromlocal'));?>"><i class="icon-arrow-left"></i>Desde local</a>
     </div>
 </p>
-
+<p>
+    <div class="btn-group">
+    <div class="btn btn-primary disabled">Agregar transacción:</div>
+    <a class="btn btn-primary" onclick="enviarUrl('fromproveedor')"><i class="icon-arrow-down icon-white"></i>Desde proveedor</a>
+    <a class="btn btn-primary" href="<?php echo $this->url(array('controller'=>'transaccion', 'action'=>'addtolocal'));?>"><i class="icon-share-alt icon-white"></i>Hacia local</a>
+    <a class="btn" href="<?php echo $this->url(array('controller'=>'transaccion', 'action'=>'addtocliente'));?>"><i class="icon-share-alt"></i>Hacia cliente</a>
+    <a class="btn" href="<?php echo $this->url(array('controller'=>'transaccion', 'action'=>'addfromlocal'));?>"><i class="icon-arrow-left"></i>Desde local</a>
+    </div>
+</p>
 <div class="fuelux">
   <table id="MyGrid" class="table table-bordered datagrid table-condensed">
   <thead>
