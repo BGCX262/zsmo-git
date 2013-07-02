@@ -124,9 +124,9 @@ class TransaccionController extends Zend_Controller_Action
               $bodegaArr = $bodega->getBodega2("Bodega Principal");    // BODEGA, depende del destinatario
               $id_bodega = $bodegaArr['bod_id_bodega'];
 
-              $glosaInventarioArr = $glosaInventario->getGlosainventario("Transacción");
+              $glosaInventarioArr = $glosaInventario->getGlosainventario("Transacción Desde Proveedor");
               
-              for($k=0;$k<6;$k++){
+              for($k=0;$k<6 && $tallaCurva[$k] !='0' ;$k++){
                 $tallaArr = $talla->getTalla2($tallaCurva[$k]);
                 $mercaderiaArr = $mercaderia->getMercaderia4($columnaInventario[1],$tallaArr['tal_id_talla']); // get MERCADERIA, depende del codigoSMO y talla
                 $id_mercaderia = $mercaderiaArr[0]['mer_id_mercaderia'];
