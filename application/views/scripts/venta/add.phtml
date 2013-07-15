@@ -14,15 +14,17 @@
   </div>
 <div class="tabbable">
   <!-- * * * * * * * PESTAÑAS DE LOS TABS * * * * * -->
-  <ul class="nav nav-tabs">
-    <li class="active" id="htab1"> <a href="#tab1" data-toggle="tab">Agregar Inventario</a></li>
-    <li id="htab2">                <a href="#tab2" data-toggle="tab">Datos de Venta</a></li>
-    <li id="htab3">                <a href="#tab3" data-toggle="tab">Finalizar Venta</a></li>
+  <ul class="nav nav-tabs" id="listaTab">
+    <li id="htab1" class="active"> <a href="#tab1" data-toggle="tab"><span class="badge badge-info">1</span> Agrega Vendedor</a></li>
+    <li id="htab2">                <a href="#tab2" data-toggle="tab"><span class="badge badge-info">2</span> Agrega Inventario</a></li>
+    <li id="htab3">                <a href="#tab3" data-toggle="tab"><span class="badge badge-info">3</span> Forma de Pago</a></li>
+    <li id="htab4">                <a href="#tab4" data-toggle="tab"><span class="badge badge-info">4</span> Otro</a></li>
+    <li id="htab5">                <a href="#tab5" data-toggle="tab"><span class="badge badge-info">5</span> Finaliza Venta</a></li>
   </ul>
   <div class="tab-content">
-    
-  <!-- * * * * * * * AGREGAR INVENTARIO ( TAB 1 ) * -->
-    <div class="tab-pane active" id="tab1">
+
+  <!-- * * * * * * * AGREGAR VENDEDOR ( TAB 1 ) * * -->
+  <div class="tab-pane active" id="tab1">
       <div class="well btn-danger">
         <table>
           <tr>
@@ -38,14 +40,18 @@
           </tr>
         </table>
       </div>
+  </div>
+  <!-- * * * * * * * AGREGAR INVENTARIO ( TAB 2 ) * -->
+  <div class="tab-pane" id="tab2">
       <div class="well btn-warning">
         <div class="row">
           <div class="span6">
           <table class="table">
               <tr>
                 <th class="span2">Código</th>
-                <th class="span2">Cantidad</th>
-                <th class="span2">Talla</th>
+                <th class="span1">Cantidad</th>
+                <th class="span1">Talla</th>
+                <th class="span2">&nbsp;</th>
               </tr>
               <tr>
                 <td>
@@ -58,28 +64,25 @@
                   <?php echo $this->form->f_num_mercaderia; ?>
                 </td>
                 <td>
-                  <select id="mer_id_mercaderia" onchange="getDataPrecio()" tabindex="4" class="input-mini jumper">
+                  <select id="mer_id_mercaderia" onchange="getDataPrecio()" tabindex="4" class="input-mini jumper1">
                   </select>
+                </td>
+                <td>
+                  <button name="botonGuardar" id="botonGuardar" type="button" class="btn btn-info jumper1" onclick="guardarString()" tabindex="5">Agregar</button>
+                  <button name="botonLimpiar" id="botonLimpiar" type="button" class="btn jumper1" onclick ="limpiarString()" tabindex="6">Limpiar</button>
                 </td>
               </tr>
               <tr>
                 <th>Artículo</th>
                 <th>Color</th>
                 <th>Precio</th>
+                <th>Total Precio</th>
               </tr>
               <tr>
                 <td><?php echo $this->form->mer_articulo; ?></td>
                 <td><?php echo $this->form->col_nombre; ?></td>
                 <td><?php echo $this->form->hme_precio; ?></td>
-              </tr>
-              <tr>
-                <td>
-                  <b>Total Precio: </b><?php echo $this->form->f_total_mercaderia; ?>
-                </td>
-                <td colspan="2"><br />
-                  <button name="botonGuardar" id="botonGuardar" type="button" class="btn btn-info jumper" onclick="guardarString()" tabindex="5">Agregar</button>
-                  <button name="botonLimpiar" id="botonLimpiar" type="button" class="btn" onclick ="limpiarString()">Limpiar</button>
-                </td>
+                <td><?php echo $this->form->f_total_mercaderia; ?></td>                
               </tr>
           </table>
         </div>
@@ -92,8 +95,8 @@
         </div>
       </div>
     </div>
-  <!-- * * * * * * * DATOS DE LA VENTA ( TAB 2 ) *  -->
-    <div class="tab-pane" id="tab2">
+  <!-- * * * * * * * FORMA DE PAGO ( TAB 3 ) * * *  -->
+  <div class="tab-pane" id="tab3">
       <div class="row">
         <div class="span6">
           <div class="well btn-info">
@@ -119,29 +122,6 @@
               </tbody>
             </table>
           </div>
-          <div class="well">
-            <p>
-              <span><b>Otro:</b></span>
-            </p>
-            <table>
-              <thead>
-                <tr>
-                  <th>Tipo</th>
-                  <th><span class="pull-left">Porcentaje (%)</span></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                  <?php echo $this->form->des_id_descuento; ?>
-                  </td>
-                  <td>
-                  <?php echo $this->form->f_descuento_monto; ?>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
         <div class="span6">
           <div class="well btn-success">
@@ -151,27 +131,27 @@
             <table>
               <thead>
                 <tr>
-                  <th>Extra</th>
-                  <th>Valor</th>
+                  <th class="span3">Extra</th>
+                  <th class="span3">Valor</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                <tr id="p_cheque">
                   <td>Código Validación Cheque:</td>
                   <td><?php echo $this->form->tphv_codigo_cheque; ?></td>
 
                 </tr>
-                <tr>
+                <tr id="p_credito_1">
                   <td>Nro. Cuotas:</td>
                   <td><?php echo $this->form->tphv_cant_cuotas; ?></td>
 
                 </tr>
-                <tr>
+                <tr id="p_credito_2">
                   <td>Cuota Aprox.:</td>
                   <td><?php echo $this->form->f_monto_cuota; ?></td>
 
                 </tr>
-                <tr>
+                <tr id="p_credito_smo">
                   <td>Datos del Vale:</td>
                   <td><?php echo $this->form->tphv_observacion_smo; ?></td>
 
@@ -183,9 +163,34 @@
         </div>
       </div>
     </div>
-  
-  <!-- * * * * * * * RESUMEN DE VENTA ( TAB 3 )* *  -->
-    <div class="tab-pane" id="tab3">
+  <!-- * * * * * * * OTRO ( TAB 4 ) * * * * * * * * -->
+  <div class="tab-pane" id="tab4">
+        <div class="well">
+        <p>
+          <span><b>Otro:</b></span>
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th><span class="pull-left">Cantidad</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+              <?php echo $this->form->des_id_descuento; ?>
+              </td>
+              <td>
+              <?php echo $this->form->f_descuento_monto; ?>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+    </div>
+  <!-- * * * * * * * FINALIZAR VENTA ( TAB 5 )* *  -->
+    <div class="tab-pane" id="tab5">
       <div class="row">
         <div class="span6">
           <p>
@@ -207,18 +212,19 @@
         <div class="span6">
           <div class="well">
             <b>Productos:</b>
+            <ul id="res_productos">
+              <li>codigo, talla, color, cantidad, precio</li>
+            </ul>
             <ul>
-              <li>codigo, talla, color, cantidad, precio</li>
-              <li>codigo, talla, color, cantidad, precio</li>
-              <li>codigo, talla, color, cantidad, precio</li>
-              <li><b>Total: $129.800</b></li>
+              <li id="res_total"><b>Total: $129.800</b></li>
             </ul>
             <b>Resumen:</b>
             <ul>
-              <li>Vendedor: Xasdasd Ysadasdasds</li>
-              <li>Forma Pago: Credito, $129000 , Efectivo: $800 </li>
-              <li>Descuento: $2000</li>
+              <li id="res_vendedor">Vendedor: Xasdasd Ysadasdasds</li>
+              <li id="res_formapago">Forma Pago: Credito, $129000 , Efectivo: $800 </li>
+              <li id="res_descuento">Descuento: $2000</li>
             </ul>
+            <?php echo $this->form->submit; ?>
           </div>
         </div>
       </div>
@@ -228,7 +234,7 @@
 </div>
 
   <!-- * * * * * * * TABLA DE LA VENTA (INV)* * * * -->
-    <div class="row">
+  <div class="row">
     <div class="span6">
       <table id="stringMercanciaTable" class="table table-bordered table-condensed">
       <thead><th>Código</th><th>Cantidad</th><th>Talla</th><th>Precio</th></thead>
@@ -237,7 +243,7 @@
     </div>
   <!-- * * * * * *  VALORES TOTALES DE LA VENTA * * -->
     <div class="span6">
-      <table class="table pull-right">
+      <table class="table pull-right table-condensed">
         <tbody>
           <tr>
             <td>Total:</td><td><?php echo $this->form->f_total; ?></td>
@@ -255,19 +261,72 @@
       </table>
     </div>
   </div>
-  <!-- * * * * * * * BOTONERA BOTTOM '<' '>' 'OK'* -->
-  <ul class="pager">
-    <li><a href="#tab1" data-toggle="tab" class="btn-danger">[X]</a></li>
-    <li><a href="#tab1" data-toggle="tab">&lt;&lt;</a></li>
-    <li><a href="#tab2" data-toggle="tab" class="btn-success">&gt;&gt;</a></li>
-    <li><?php echo $this->form->submit; ?></li>
-  </ul>
+  <!-- * * * * * BOLETA, MERCADERIA, SUBMIT, RETURNURL * * * -->
 <?php echo $this->form->loc_nombre; ?>
 <?php echo $this->form->stringMercanciaInput; ?>
 <?php echo $this->form->tipoSubmit; ?>
 <?php echo $this->form->returnUrl; ?>
 </div>
 </form>
+
+<!-- TECLAS DE NAVEGACION -->
+<style type="text/css">
+  input:focus {
+    background: #fc9fff;   /* sexy hot pink */
+    border: solid 4px #DFDFDF; 
+  }
+   select:focus {
+    background: #fc9fff;   /* sexy hot pink */
+    border: solid 4px #DFDFDF; 
+  }
+  button:focus {
+    background: #fc9fff;   /* sexy hot pink */
+    border: solid 4px #DFDFDF; 
+  }
+</style>
+<script>
+$(document).keydown(function (e) {
+  var keyCode = e.keyCode || e.which,
+      arrow = {left: 37, up: 38, right: 39, down: 40 };
+
+  switch (keyCode) {
+    case arrow.left:
+      flechaIzq();
+    break;
+    case arrow.up:
+        $('[class*="primero"]').focus();
+    break;
+    case arrow.right:
+      flechaDer();
+    break;
+    case arrow.down:
+        $('[class*="primero"]').focus();
+    break;
+  }
+});
+
+function flechaIzq(){
+  var newIndice = $('#listaTab li.active').prev().index();
+  if(newIndice == '-1'){
+    newIndice = $('#listaTab li.active').siblings().last().index();
+  }
+  var selector = '#listaTab li:eq('+newIndice+') a';
+  $(selector).tab('show');
+}
+
+function flechaDer(){
+  var newIndice = $('#listaTab li.active').next().index();
+  if(newIndice == '-1'){
+    newIndice = $('#listaTab li.active').siblings().first().index();
+  }
+  var selector = '#listaTab li:eq('+newIndice+') a';
+  $(selector).tab('show');
+}
+
+$(":input:first").focus();
+</script>
+<!-- FIN TECLAS DE NAVEGACION -->
+
   <!-- * * * * * * * FUNCIONES JAVA SCRIPT * * * * -->
 <script>
 function calcularVuelto(){
@@ -283,12 +342,12 @@ function calcularVuelto(){
   }
 }
 
-function calcularPago(){
+function calcularPago(){      //AL ONCLICK TIPO FORMA DE PAGO
   if( $('#f_total_final').val() == "" )     $('#f_total_final').val('0');
   if( $('#f_pago_monto').val() == "" )      $('#f_pago_monto').val('0');
   
   var f_total_final = parseInt( $('#f_total_final').val() );
-  
+
   $('#f_pago_monto').val( f_total_final );
 }
 
@@ -439,19 +498,48 @@ function getDataPrecio(){
 }
 
 $("document").ready(function(){             //RECORRER LOS CAMPOS CON TAB
-  $('[class*="jumper"]').keypress(function(event){
+  $('[class*="jumper1"]').keypress(function(event){ //AGREGAR INVENTARIO
     if(event.which == 43){                  //AL HACER CLIC EN EL SIGNO 'MAS' (+)
-//    if(event.which == 13){                  //AL HACER CLIC EN EL SIGNO ENTER
     cb = parseInt($(this).attr('tabindex'));
-      if(cb == 5) cb = 0;
+      if(cb == 6) cb = 0;
       if ( $(":input[tabindex='" + (cb + 1) + "']") != null) {
         $(":input[tabindex='" + (cb + 1) + "']").focus();
         $(":input[tabindex='" + (cb + 1) + "']").select();
         //alert(cb);
         return false;
       }
+      return false;
     }
   });
+  
+  $('[class*="jumper2"]').keypress(function(event){ //FORMA DE PAGO
+    if(event.which == 43){                  //AL HACER CLIC EN EL SIGNO 'MAS' (+)
+    cb = parseInt($(this).attr('tabindex'));
+      if(cb == 4) cb = 0;
+      if ( $(":input[tabindex='" + (cb + 1) + "']") != null) {
+        $(":input[tabindex='" + (cb + 1) + "']").focus();
+        $(":input[tabindex='" + (cb + 1) + "']").select();
+        //alert(cb);
+        return false;
+      }
+      return false;
+    }
+  });
+
+  $('[class*="jumper3"]').keypress(function(event){ //DESCUENTO
+    if(event.which == 43){                  //AL HACER CLIC EN EL SIGNO 'MAS' (+)
+    cb = parseInt($(this).attr('tabindex'));
+      if(cb == 2) cb = 0;
+      if ( $(":input[tabindex='" + (cb + 1) + "']") != null) {
+        $(":input[tabindex='" + (cb + 1) + "']").focus();
+        $(":input[tabindex='" + (cb + 1) + "']").select();
+        //alert(cb);
+        return false;
+      }
+      return false;
+    }
+  });
+
 });
 
 $(document).ready(function() {               // ELIMINAR ENTER PARA ENVIAR FORM
@@ -462,4 +550,68 @@ $(document).ready(function() {               // ELIMINAR ENTER PARA ENVIAR FORM
         }
     });
 });
+
+    // PARA OCULTAR OPCIONES EXTRA DE FORMA DE PAGO
+var formaPagoExtra = function () {
+  $("#tip_id_tipo_pago option:selected").each(function () {
+    switch( $(this).val() ){
+      case '1': //nada -
+        $('#p_cheque').hide();  //cheque
+        $('#p_credito_1').hide(); //cuotas
+        $('#p_credito_2').hide(); //monto cuota
+        $('#p_credito_smo').hide();      //observacion credito smo
+      break;
+      case '2': //Efectivo
+        $('#p_cheque').hide();  //cheque
+        $('#p_credito_1').hide(); //cuotas
+        $('#p_credito_2').hide(); //monto cuota
+        $('#p_credito_smo').hide();      //observacion credito smo
+      break;
+      case '3': //SMO Crédito
+        $('#p_cheque').hide();  //cheque
+        $('#p_credito_1').show(); //cuotas
+        $('#p_credito_2').show(); //monto cuota
+        $('#p_credito_smo').show();      //observacion credito smo
+      break;
+      case '4': //Redcompra
+        $('#p_cheque').hide();  //cheque
+        $('#p_credito_1').hide(); //cuotas
+        $('#p_credito_2').hide(); //monto cuota
+        $('#p_credito_smo').hide();      //observacion credito smo
+      break;
+      case '5': //Abono SMO
+        $('#p_cheque').hide();  //cheque
+        $('#p_credito_1').hide(); //cuotas
+        $('#p_credito_2').hide(); //monto cuota
+        $('#p_credito_smo').hide();      //observacion credito smo
+      break;
+      case '6': //Crédito (Visa/Mastercard/Etc)
+        $('#p_cheque').hide();  //cheque
+        $('#p_credito_1').show(); //cuotas
+        $('#p_credito_2').show(); //monto cuota
+        $('#p_credito_smo').hide();      //observacion credito smo
+      break;
+      case '7': //Crédito (ABCDIN)
+        $('#p_cheque').hide();  //cheque
+        $('#p_credito_1').show(); //cuotas
+        $('#p_credito_2').show(); //monto cuota
+        $('#p_credito_smo').hide();      //observacion credito smo
+      break;
+      case '8': //Crédito (PRESTO)
+        $('#p_cheque').hide();  //cheque
+        $('#p_credito_1').show(); //cuotas
+        $('#p_credito_2').show(); //monto cuota
+        $('#p_credito_smo').hide();      //observacion credito smo
+      break;
+      case '9': //Cheque
+        $('#p_cheque').show();  //cheque
+        $('#p_credito_1').hide(); //cuotas
+        $('#p_credito_2').hide(); //monto cuota
+        $('#p_credito_smo').hide();      //observacion credito smo
+      break;
+    };  //FIN SWITCH
+  });
+};
+
+$("#tip_id_tipo_pago").change(formaPagoExtra).keyup(formaPagoExtra);
 </script>

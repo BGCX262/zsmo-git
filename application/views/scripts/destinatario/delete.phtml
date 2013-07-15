@@ -1,0 +1,17 @@
+<?php
+$this->title = "Eliminar Destinatario";
+$this->headTitle($this->title);
+?>
+<div class="hero-unit">
+  <p>Eliminar destinatario: '
+<?php echo $this->data['des_nombre'].' RUT:'.$this->data['des_rut'].' ('.$this->data['des_id_destinatario'].')';   ?>'?
+  </p>
+  <form action="<?php echo $this->url(array('action'=>'delete')); ?>" method="post">
+  <div>
+    <input type="hidden" id="id_destinatario" name="id_destinatario" value="<?php echo $this->id_destinatario_get; ?>" />
+    <input class="btn btn-primary btn-large" type="submit" name="eliminar" value="Eliminar" />
+    &nbsp;
+    <input class="btn btn-danger btn-large" type="submit" onclick="document.close()" name="eliminar" value="Cancelar" />
+  </div>
+  </form>
+</div>

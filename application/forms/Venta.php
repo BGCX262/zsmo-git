@@ -16,22 +16,35 @@ class Application_Form_Venta extends Zend_Form
 
         $loc_nombre =  new Zend_Form_Element_Hidden('loc_nombre');
         $loc_nombre->setValue($local);
+
+ 
+// * * * * * * * * ASIGNAR VENDEDOR (TAB 1) * * * * * * * * * *
+        $usu_id_usuario = new Zend_Form_Element_Select('usu_id_usuario');
+        $usu_id_usuario->setAttrib('class','input-large primero');
+        $usu_id_usuario->setDecorators(array( array('ViewHelper'), ));
+        $filaVendedor = new Application_Model_DbTable_Usuarios();
+        foreach ($filaVendedor->getUsuarioPorPerfilLocal("Vendedor Fijo",$local) as $vendedor) :
+          $usu_id_usuario->addMultiOption( $vendedor->usu_id_usuario,  $vendedor->usu_nombre.' '.$vendedor->usu_apellido_1.' '.$vendedor->usu_apellido_2 );
+        endforeach;
+        foreach ($filaVendedor->getUsuarioPorPerfilLocal("Vendedor Auxiliar",$local) as $vendedor) :
+          $usu_id_usuario->addMultiOption( $vendedor->usu_id_usuario,  $vendedor->usu_nombre.' '.$vendedor->usu_apellido_1.' '.$vendedor->usu_apellido_2 );
+        endforeach;
         
-// * * * * * AGREGAR FILA DE MERCADERIA A LA VENTA (TAB 1)* * * * *
+// * * * * * AGREGAR FILA DE MERCADERIA A LA VENTA (TAB 2)* * * * *
         $mer_codigo = new Zend_Form_Element_Text('mer_codigo');
         $mer_codigo->setDecorators(array( array('ViewHelper'), ));
         $mer_codigo->setAttrib("tabindex", "1");
-        $mer_codigo->setAttrib("class", "input-small jumper");
+        $mer_codigo->setAttrib("class", "input-small jumper1 primero");
         
         $btn_mer_codigo = new Zend_Form_Element_Button('btn_mer_codigo');
-        $btn_mer_codigo->setAttrib('class','btn jumper')->setAttrib('onClick','getDataMercaderia()');
+        $btn_mer_codigo->setAttrib('class','btn jumper1')->setAttrib('onClick','getDataMercaderia()');
         $btn_mer_codigo->setLabel('<i class="icon-arrow-right"></i>')->setAttrib( 'escape', false );
         $btn_mer_codigo->setDecorators(array( array('ViewHelper'), ));
         $btn_mer_codigo->setAttrib("tabindex", "2");
         
         $f_num_mercaderia =  new Zend_Form_Element_Text('f_num_mercaderia');
         $f_num_mercaderia->setRequired(true)->addFilter('StripTags')->addFilter('StringTrim');
-        $f_num_mercaderia->setAttrib('class','input-mini jumper');
+        $f_num_mercaderia->setAttrib('class','input-mini jumper1');
         $f_num_mercaderia->setAttrib('onchange','calcularTotalMonto()');
         $f_num_mercaderia->setValue('1');
         $f_num_mercaderia->setDecorators(array( array('ViewHelper'), ));
@@ -60,37 +73,12 @@ class Application_Form_Venta extends Zend_Form
         $f_total_mercaderia->setRequired(true)->addFilter('StripTags')->addFilter('StringTrim');
         $f_total_mercaderia->setAttrib('class','input-small disabled')->setAttrib('readonly','readonly');
         $f_total_mercaderia->setDecorators(array( array('ViewHelper'), ));
-        
-// * * * * * * * * ASIGNAR VENDEDOR (TAB 2) * * * * * * * * * *
-        $usu_id_usuario = new Zend_Form_Element_Select('usu_id_usuario');
-        $usu_id_usuario->setAttrib('class','input-large');
-        $usu_id_usuario->setDecorators(array( array('ViewHelper'), ));
-        $filaVendedor = new Application_Model_DbTable_Usuarios();
-        foreach ($filaVendedor->getUsuarioPorPerfilLocal("Vendedor Fijo",$local) as $vendedor) :
-          $usu_id_usuario->addMultiOption( $vendedor->usu_id_usuario,  $vendedor->usu_nombre.' '.$vendedor->usu_apellido_1.' '.$vendedor->usu_apellido_2 );
-        endforeach;
-        foreach ($filaVendedor->getUsuarioPorPerfilLocal("Vendedor Auxiliar",$local) as $vendedor) :
-          $usu_id_usuario->addMultiOption( $vendedor->usu_id_usuario,  $vendedor->usu_nombre.' '.$vendedor->usu_apellido_1.' '.$vendedor->usu_apellido_2 );
-        endforeach;
-        
-        
-// * * * * * * * * APLICAR DESCUENTO (TAB 2) * * * * * * * * * *
-        $des_id_descuento = new Zend_Form_Element_Select('des_id_descuento');
-        $des_id_descuento->setAttrib('class','input-large')->setAttrib('onChange','calcularDescuento()');
-        $filaDcto = new Application_Model_DbTable_Descuento();
-        foreach ($filaDcto->fetchAll() as $dcto) :
-          $des_id_descuento->addMultiOption($dcto->des_id_descuento,$dcto->des_tipo.' ('.$dcto->des_porcentaje.'%)');
-        endforeach;
-        $des_id_descuento->setDecorators(array( array('ViewHelper'), ));
-        
-        $f_descuento_monto =  new Zend_Form_Element_Text('f_descuento_monto');
-        $f_descuento_monto->setRequired(true)->setValue("0");
-        $f_descuento_monto->setAttrib('class','disabled input-medium')->setAttrib('readonly','readonly');
-        $f_descuento_monto->setDecorators(array( array('ViewHelper'), ));
 
-// * * * * * * * * TIPO DE PAGO (TAB 2) * * * * * * * * * *
+// * * * * * * * * FORMA DE PAGO (TAB 3) * * * * * * * * * *
         $tip_id_tipo_pago = new Zend_Form_Element_Select('tip_id_tipo_pago');
-        $tip_id_tipo_pago->setAttrib('class','input-large')->setAttrib('onChange','calcularPago()');
+        $tip_id_tipo_pago->setAttrib('class','input-large primero jumper2')
+                ->setAttrib('onChange','calcularPago()')
+                ->setAttrib("tabindex", "1");
         $filaTipoPago = new Application_Model_DbTable_Tipopago();
         foreach ($filaTipoPago->fetchAll() as $tipoPago) :
           $tip_id_tipo_pago->addMultiOption($tipoPago->tip_id_tipo_pago,$tipoPago->tip_nombre);
@@ -99,16 +87,21 @@ class Application_Form_Venta extends Zend_Form
 
         $f_pago_monto =  new Zend_Form_Element_Text('f_pago_monto');
         $f_pago_monto->setRequired(true);
-        $f_pago_monto->setAttrib('class','input-medium')->setAttrib('onChange','calcularVuelto()');
+        $f_pago_monto->setAttrib('class','input-medium jumper2')
+                ->setAttrib('onChange','calcularVuelto()')
+                ->setAttrib("tabindex", "2");
         $f_pago_monto->setDecorators(array( array('ViewHelper'), ));
 
-// * * * * * * * * EXTRA DE PAGO (TAB 2) * * * * * * * * * *
+// * * * * * * * * FORMA DE PAGO EXTRA (TAB 3) * * * * * * * * * *
         $tphv_codigo_cheque =  new Zend_Form_Element_Text('tphv_codigo_cheque');
-        $tphv_codigo_cheque->setAttrib('class','input-large');
+        $tphv_codigo_cheque->setAttrib('class','input-large jumper2')
+                ->setAttrib("tabindex", "3");
         $tphv_codigo_cheque->setDecorators(array( array('ViewHelper'), ));
         
         $tphv_cant_cuotas = new Zend_Form_Element_Select('tphv_cant_cuotas');
-        $tphv_cant_cuotas->setAttrib('class','input-large')->setAttrib('onChange','calcularMontoCuotas()');
+        $tphv_cant_cuotas->setAttrib('class','input-large jumper2')
+                ->setAttrib('onChange','calcularMontoCuotas()')
+                ->setAttrib("tabindex", "3");
         $tphv_cant_cuotas->addMultiOption("0","-");
         $tphv_cant_cuotas->addMultiOption("1","1 Cuota");
         $tphv_cant_cuotas->addMultiOption("2","2 Cuotas");
@@ -116,13 +109,34 @@ class Application_Form_Venta extends Zend_Form
         $tphv_cant_cuotas->setDecorators(array( array('ViewHelper'), ));
 
         $f_monto_cuota =  new Zend_Form_Element_Text('f_monto_cuota');
-        $f_monto_cuota->setAttrib('class','disabled input-large')->setAttrib('readonly','readonly');
+        $f_monto_cuota->setAttrib('class','disabled input-large')
+                ->setAttrib('readonly','readonly');
         $f_monto_cuota->setDecorators(array( array('ViewHelper'), ));
         
         $tphv_observacion_smo = new Zend_Form_Element_Textarea('tphv_observacion_smo');
-        $tphv_observacion_smo->setAttrib('class','input-large')->setAttrib('rows', '2')->setAttrib('onChange','calcularMontoCuotas()');
+        $tphv_observacion_smo->setAttrib('class','input-large jumper2')
+                ->setAttrib('rows', '2')
+                ->setAttrib('onChange','calcularMontoCuotas()')
+                ->setAttrib("tabindex", "4");
         $tphv_observacion_smo->setDecorators(array( array('ViewHelper'), ));
         
+// * * * * * * * * APLICAR DESCUENTO (TAB 4) * * * * * * * * * *
+        $des_id_descuento = new Zend_Form_Element_Select('des_id_descuento');
+        $des_id_descuento->setAttrib('class','input-large primero jumper3')
+                ->setAttrib('onChange','calcularDescuento()');
+        $filaDcto = new Application_Model_DbTable_Descuento();
+        foreach ($filaDcto->fetchAll() as $dcto) :
+          $des_id_descuento->addMultiOption($dcto->des_id_descuento,$dcto->des_tipo.' ('.$dcto->des_porcentaje.'%)');
+        endforeach;
+        $des_id_descuento->setAttrib("tabindex", "1")
+                ->setDecorators(array( array('ViewHelper'), ));
+        
+        $f_descuento_monto =  new Zend_Form_Element_Text('f_descuento_monto');
+        $f_descuento_monto->setRequired(true)->setValue("0");
+        $f_descuento_monto->setAttrib('class','input-medium jumper3');
+        $f_descuento_monto->setAttrib("tabindex", "2")
+                ->setDecorators(array( array('ViewHelper'), ));
+   
 // * * * * * * * * SUBTOTALES DE LA VENTA (ABAJO DE TABS) * * * * * * * *        
         $f_total =  new Zend_Form_Element_Text('f_total');
         $f_total->setRequired(true)->addFilter('StripTags')->addFilter('StringTrim');
@@ -151,7 +165,8 @@ class Application_Form_Venta extends Zend_Form
         
         $submit = new Zend_Form_Element_Submit('submit');
         $submit->setAttrib('id', 'submitbutton');
-        $submit->setAttrib('class','btn btn-large btn-primary');
+        $submit->setAttrib('class','btn btn-large btn-primary btn-block primero');
+        $submit->setLabel('F I N A L I Z A R  V E N T A');
         $submit->setDecorators(array( array('ViewHelper'), ));
         
         $controllerFront = Zend_Controller_Front::getInstance();
@@ -162,7 +177,9 @@ class Application_Form_Venta extends Zend_Form
         
         $this->addElements(array(
             $loc_nombre,
-// * * * * * * * * AGREGAR FILA DE MERCADERIA A LA VENTA (TAB 1) * * *
+// * * * * * * * * ASIGNAR VENDEDOR (TAB 1) * * * * * * * * * *
+            $usu_id_usuario,    // select lista de vendedores
+// * * * * * * * * AGREGAR FILA DE MERCADERIA A LA VENTA (TAB 2) * * *
             $mer_codigo,
             $btn_mer_codigo,
             $f_num_mercaderia,
@@ -171,25 +188,24 @@ class Application_Form_Venta extends Zend_Form
             $mer_foto,
             $hme_precio,
             $f_total_mercaderia,
-// * * * * * * * * ASIGNAR VENDEDOR (TAB 2) * * * * * * * * * *
-            $usu_id_usuario,    // select lista de vendedores
-// * * * * * * * * APLICAR DESCUENTO (TAB 2) * * * * * * * * * *
-            $des_id_descuento,
-            $f_descuento_monto,
-// * * * * * * * * TIPO DE PAGO (TAB 2) * * * * * * * * * *
+// * * * * * * * * FORMA DE PAGO (TAB 3) * * * * * * * * * *
             $tip_id_tipo_pago,
             $f_pago_monto,
-// * * * * * * * * EXTRA DE PAGO (TAB 2) * * * * * * * * * *
+// * * * * * * * * FORMA EXTRA DE PAGO (TAB 3) * * * * * * * * * *
             $tphv_codigo_cheque,
             $tphv_cant_cuotas,
             $f_monto_cuota,
             $tphv_observacion_smo,
+// * * * * * * * * APLICAR DESCUENTO (TAB 4) * * * * * * * * * *
+            $des_id_descuento,
+            $f_descuento_monto,
+
 // * * * * * * * * SUBTOTALES DE LA VENTA * * * * * * * *  
             $f_total,
             $f_dcto,
             $f_vuelto,
             $f_total_final,
-// * * * * * * * * SUBMIT * * * * * * * * * 
+// * * * * * * * * SUBMIT (TAB 5) * * * * * * * * * 
             $stringMercanciaInput,
             $submit));
     }

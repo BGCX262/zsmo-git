@@ -49,7 +49,7 @@ class CajeroController extends Zend_Controller_Action
 
     public function abonosAction()
     {
-        // action body
+
     }
 
     public function creditoAction()

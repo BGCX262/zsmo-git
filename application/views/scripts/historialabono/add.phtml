@@ -1,0 +1,43 @@
+<?php
+$this->title = "Agregar Abono";
+$this->headTitle($this->title);
+?>
+
+<form id="formadd" method="post">
+<div class="well">
+  <h3>Agregar Abono</h3>
+  <div class="tabbable">
+    <ul class="nav nav-tabs">
+      <li class="active" id="htab1"> <a href="#tab1" data-toggle="tab">Cliente</a></li>
+      <li id="htab2">                <a href="#tab2" data-toggle="tab">Abono</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+          <div class="row-fluid">
+            <div class="span4">
+              <?php echo $this->form->cli_rut; ?>
+              <?php echo $this->form->cli_nombre; ?>
+              <?php echo $this->form->cli_apellido_1; ?>
+              <?php echo $this->form->cli_apellido_2; ?>
+            </div>
+            <div class="span4">
+              <?php echo $this->form->cli_fono_1; ?>
+              <?php echo $this->form->cli_fono_2; ?>
+              <?php echo $this->form->cli_direccion; ?>
+              <?php echo $this->form->cli_lugar_de_trabajo; ?>
+              <?php echo $this->form->cli_ciudad; ?>
+            </div>
+        </div>
+      </div>
+      <div class="tab-pane" id="tab2">
+        <?php echo $this->form->abo_cantidad; ?>
+        <?php echo $this->form->abo_fecha; ?>
+        <?php echo $this->form->abo_tipo_movimiento; ?>
+      </div>
+    </div>
+  </div>
+  <?php echo $this->form->submit; ?>
+</div>
+<?php echo $this->form->abo_id_abono; ?>
+<?php echo $this->form->cli_id_cliente; ?>
+</form>
